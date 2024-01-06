@@ -1,33 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
-import "./css/TodoList.css"; // Importez le fichier CSS
+import "./css/TodoList.css";
 
-const TodoList = () => {
-  // Charger les tâches sauvegardées ou initialiser une liste vide
-  const [todos, setTodos] = useState(() => {
-    const savedTodos = localStorage.getItem('todos');
-    return savedTodos ? JSON.parse(savedTodos) : [];
-  });
-
-  // Mettre à jour le localStorage à chaque changement de la liste des tâches
-  useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]);
-
+const TodoList = ({ todos, onAddTodo, onDeleteTodo }) => {
   const [newTodo, setNewTodo] = useState('');
 
   const addTodo = () => {
     if (!newTodo.trim()) return;
-    const newTask = {
+    onAddTodo({
       id: Math.random().toString(),
       text: newTodo
-    };
-    setTodos([...todos, newTask]);
+    });
     setNewTodo('');
-  };
-
-  const deleteTodo = (id) => {
-    setTodos(todos.filter(todo => todo.id !== id));
   };
 
   const handleKeyPress = (e) => {
@@ -35,6 +19,11 @@ const TodoList = () => {
       addTodo();
     }
   };
+
+  // Vérification si 'todos' est défini et est un tableau
+  if (!todos) {
+    return <div>Aucune tâche.</div>;
+  }
 
   return (
     <div className="todo-container">
@@ -52,7 +41,7 @@ const TodoList = () => {
             {todo.text}
             <FaTrashAlt
               className="delete-icon"
-              onClick={() => deleteTodo(todo.id)}
+              onClick={() => onDeleteTodo(todo.id)}
               style={{ cursor: 'pointer', marginLeft: '10px' }}
             />
           </li>

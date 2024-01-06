@@ -12,7 +12,11 @@ function App() {
   const [editingProjectName, setEditingProjectName] = useState('');
 
   useEffect(() => {
-    const savedProjects = JSON.parse(localStorage.getItem('projects')) || [];
+    let savedProjects = JSON.parse(localStorage.getItem('projects')) || [];
+    savedProjects = savedProjects.map(project => ({
+      ...project,
+      todos: project.todos || []
+    }));
     setProjects(savedProjects);
   }, []);
 
@@ -22,17 +26,12 @@ function App() {
 
   const handleAddProject = () => {
     if (newProjectName.trim()) {
-      const newProject = { name: newProjectName, note: '' };
+      const newProject = { name: newProjectName, note: '', todos: [] };
       const updatedProjects = [...projects, newProject];
       setProjects(updatedProjects);
       saveProjects(updatedProjects);
       setNewProjectName('');
     }
-  };
-
-  const handleProjectClick = (index, e) => {
-    e.stopPropagation();
-    setSelectedProjectIndex(index);
   };
 
   const handleEditProject = (index) => {
@@ -45,7 +44,7 @@ function App() {
   };
 
   const handleEditProjectNameSubmit = (index) => {
-    const updatedProjects = projects.map((project, projIndex) => 
+    const updatedProjects = projects.map((project, projIndex) =>
       projIndex === index ? { ...project, name: editingProjectName } : project
     );
     setProjects(updatedProjects);
@@ -73,6 +72,22 @@ function App() {
     saveProjects(updatedProjects);
   };
 
+  const handleAddTodo = (newTodo) => {
+    const updatedProjects = projects.map((project, index) => 
+      index === selectedProjectIndex ? { ...project, todos: [...project.todos, newTodo] } : project
+    );
+    setProjects(updatedProjects);
+    saveProjects(updatedProjects);
+  };
+
+  const handleDeleteTodo = (todoId) => {
+    const updatedProjects = projects.map((project, index) => 
+      index === selectedProjectIndex ? { ...project, todos: project.todos.filter(todo => todo.id !== todoId) } : project
+    );
+    setProjects(updatedProjects);
+    saveProjects(updatedProjects);
+  };
+
   return (
     <div className="App">
       <div className="bord1"></div>
@@ -91,12 +106,11 @@ function App() {
           </div>
           <div className="Projects_List">
             {projects.map((project, index) => (
-              <div key={index} className="Project_Item" onClick={(e) => handleProjectClick(index, e)}>
+              <div key={index} className="Project_Item" onClick={() => setSelectedProjectIndex(index)}>
                 {editingProjectIndex === index ? (
                   <input
                     type="text"
                     value={editingProjectName}
-                    onClick={(e) => e.stopPropagation()}
                     onChange={handleEditProjectNameChange}
                     onBlur={() => handleEditProjectNameSubmit(index)}
                     onKeyPress={(e) => e.key === 'Enter' && handleEditProjectNameSubmit(index)}
@@ -105,16 +119,13 @@ function App() {
                 ) : (
                   <span onDoubleClick={() => handleEditProject(index)}>{project.name}</span>
                 )}
-                <FaTrash onClick={(e) => {
-                  e.stopPropagation();
-                  handleDeleteProject(index);
-                }} className="Delete_Icon" />
+                <FaTrash onClick={() => handleDeleteProject(index)} className="Delete_Icon" />
               </div>
             ))}
           </div>
         </div>
         <div className="Notes">
-          {selectedProjectIndex !== -1 &&
+          {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&
             <Notes
               content={projects[selectedProjectIndex].note}
               onContentChange={handleUpdateNote}
@@ -122,7 +133,13 @@ function App() {
           }
         </div>
         <div className="Todo">
-          <TodoList />
+          {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&
+            <TodoList
+              todos={projects[selectedProjectIndex].todos}
+              onAddTodo={handleAddTodo}
+              onDeleteTodo={handleDeleteTodo}
+            />
+          }
         </div>
       </div>
       <div className="bord1"></div>
