@@ -36,3 +36,66 @@
   width: 30%;
   height: 97vh;
 }
+
+.Project_Creation {
+  text-align: center;
+  padding: 10px;
+}
+
+.Project_Creation input {
+  padding: 5px;
+  margin-right: 5px;
+}
+
+.Project_Creation button {
+  padding: 6px 12px;
+  background-color: #4CAF50; /* Couleur verte */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s;
+}
+
+.Project_Creation button:hover {
+  background-color: #45a049; /* Couleur un peu plus foncée au survol */
+}
+
+
+.Projects_List {
+  padding: 10px;
+}
+
+.Project_Item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 5px;
+  padding: 8px;
+  border: 1px solid #ddd; /* Bordure légère */
+  border-radius: 4px; /* Coins arrondis */
+  background-color: #f9f9f9; /* Couleur de fond légère */
+  transition: background-color 0.3s; /* Animation de survol */
+}
+
+.Project_Item:hover {
+  background-color: #f1f1f1; /* Changement de couleur au survol */
+}
+
+.Project_Name {
+  font-size: 1.1em; /* Taille de la police */
+  font-weight: bold; /* Police en gras */
+  color: #333; /* Couleur de la police */
+  margin-left: 10px; /* Espacement */
+}
+
+.Delete_Icon {
+  color: red;
+  cursor: pointer;
+}
+
+.Delete_Icon:hover {
+  color: darkred;
+}
+

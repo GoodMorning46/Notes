@@ -11,21 +11,16 @@ const toolbarOptions = [
   ['link', 'image'],
 ];
 
-const Notes = () => {
+const Notes = ({ content, onContentChange }) => {
   const [editorHtml, setEditorHtml] = useState('');
 
   useEffect(() => {
-    // Chargement du contenu depuis le localStorage
-    const localNotes = localStorage.getItem('notes');
-    if (localNotes) {
-      setEditorHtml(localNotes);
-    }
-  }, []);
+    setEditorHtml(content);
+  }, [content]);
 
   const handleChange = (content, delta, source, editor) => {
-    // Mise à jour de l'état de l'éditeur et sauvegarde dans le localStorage
+    onContentChange(content);
     setEditorHtml(content);
-    localStorage.setItem('notes', content);
   };
 
   return (
