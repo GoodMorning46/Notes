@@ -8,6 +8,8 @@ function App() {
   const [projects, setProjects] = useState([]);
   const [newProjectName, setNewProjectName] = useState('');
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(-1);
+  const [editingProjectIndex, setEditingProjectIndex] = useState(-1);
+  const [editingProjectName, setEditingProjectName] = useState('');
 
   useEffect(() => {
     const savedProjects = JSON.parse(localStorage.getItem('projects')) || [];
@@ -28,8 +30,27 @@ function App() {
     }
   };
 
-  const handleSelectProject = (index) => {
+  const handleProjectClick = (index, e) => {
+    e.stopPropagation();
     setSelectedProjectIndex(index);
+  };
+
+  const handleEditProject = (index) => {
+    setEditingProjectIndex(index);
+    setEditingProjectName(projects[index].name);
+  };
+
+  const handleEditProjectNameChange = (e) => {
+    setEditingProjectName(e.target.value);
+  };
+
+  const handleEditProjectNameSubmit = (index) => {
+    const updatedProjects = projects.map((project, projIndex) => 
+      projIndex === index ? { ...project, name: editingProjectName } : project
+    );
+    setProjects(updatedProjects);
+    saveProjects(updatedProjects);
+    setEditingProjectIndex(-1);
   };
 
   const handleDeleteProject = (index) => {
@@ -70,9 +91,24 @@ function App() {
           </div>
           <div className="Projects_List">
             {projects.map((project, index) => (
-              <div key={index} className="Project_Item" onClick={() => handleSelectProject(index)}>
-                {project.name}
-                <FaTrash onClick={() => handleDeleteProject(index)} className="Delete_Icon" />
+              <div key={index} className="Project_Item" onClick={(e) => handleProjectClick(index, e)}>
+                {editingProjectIndex === index ? (
+                  <input
+                    type="text"
+                    value={editingProjectName}
+                    onClick={(e) => e.stopPropagation()}
+                    onChange={handleEditProjectNameChange}
+                    onBlur={() => handleEditProjectNameSubmit(index)}
+                    onKeyPress={(e) => e.key === 'Enter' && handleEditProjectNameSubmit(index)}
+                    autoFocus
+                  />
+                ) : (
+                  <span onDoubleClick={() => handleEditProject(index)}>{project.name}</span>
+                )}
+                <FaTrash onClick={(e) => {
+                  e.stopPropagation();
+                  handleDeleteProject(index);
+                }} className="Delete_Icon" />
               </div>
             ))}
           </div>
