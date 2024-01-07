@@ -95,14 +95,14 @@ function App() {
         <div className="Menu_gauche">
           <h1 className="Board">Board</h1>
           <div className="Project_Creation">
-            <input
-              type="text"
-              value={newProjectName}
-              onChange={(e) => setNewProjectName(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleAddProject()}
-              placeholder="Nom du projet"
-            />
-            <button onClick={handleAddProject}>Projet +</button>
+              <input
+                type="text"
+                value={newProjectName}
+                onChange={(e) => setNewProjectName(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleAddProject()}
+                placeholder="Nom du projet"
+              />
+              <button onClick={handleAddProject}>Projet +</button>
           </div>
           <div className="Projects_List">
   {projects.map((project, index) => (
