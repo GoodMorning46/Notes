@@ -67,16 +67,26 @@
   padding: 10px;
 }
 
+.Project_Container {
+  display: flex;
+  align-items: center;
+}
+
 .Project_Item {
+  flex-grow: 1;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 10px 5px;
-  padding: 8px;
-  border: 1px solid #ddd; /* Bordure légère */
-  border-radius: 4px; /* Coins arrondis */
-  background-color: #f9f9f9; /* Couleur de fond légère */
-  transition: background-color 0.3s; /* Animation de survol */
+}
+
+.Project_Content {
+  display: flex;
+  align-items: center;
 }
 
 .Project_Item:hover {
@@ -87,15 +97,30 @@
   font-size: 1.1em; /* Taille de la police */
   font-weight: bold; /* Police en gras */
   color: #333; /* Couleur de la police */
-  margin-left: 10px; /* Espacement */
+  margin-right: auto; /* Pousse les autres éléments vers la droite */
+
 }
 
 .Delete_Icon {
-  color: red;
+  margin-left: 10px;
   cursor: pointer;
 }
 
 .Delete_Icon:hover {
   color: darkred;
 }
+
+.Task_Counter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  font-size: 0.8em;
+  margin-left: 10px;
+}
+
 
