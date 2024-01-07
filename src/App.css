@@ -70,18 +70,20 @@
 .Project_Container {
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .Project_Item {
   flex-grow: 1;
-  padding: 5px;
-  margin-bottom: 5px;
-  background-color: #f0f0f0;
-  border-radius: 5px;
+  padding: 10px 15px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .Project_Content {
@@ -89,20 +91,28 @@
   align-items: center;
 }
 
+.Project_Item {
+  /* styles existants */
+  transition: background-color 0.3s ease; /* Animation douce pour le changement de couleur */
+}
+
 .Project_Item:hover {
-  background-color: #f1f1f1; /* Changement de couleur au survol */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.Project_Item_Selected {
+  border: 2px solid #007bff; /* Couleur de la bordure pour l'élément sélectionné */
+  background-color: #f0f8ff; /* Légère modification de la couleur de fond */
 }
 
 .Project_Name {
-  font-size: 1.1em; /* Taille de la police */
-  font-weight: bold; /* Police en gras */
-  color: #333; /* Couleur de la police */
-  margin-right: auto; /* Pousse les autres éléments vers la droite */
-
+  font-weight: bold; /* Rendre le nom du projet plus visible */
 }
 
 .Delete_Icon {
-  margin-left: 10px;
+  color: #ff5b5b; /* Couleur de l'icône pour la suppression */
+  margin-left: 15px;
   cursor: pointer;
 }
 
@@ -116,7 +126,7 @@
   justify-content: center;
   width: 20px;
   height: 20px;
-  background-color: red;
+  background-color: #007bff; /* Couleur de la pastille pour un look moderne */
   color: white;
   border-radius: 50%;
   font-size: 0.8em;

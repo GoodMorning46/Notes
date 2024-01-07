@@ -105,29 +105,32 @@ function App() {
             <button onClick={handleAddProject}>Projet +</button>
           </div>
           <div className="Projects_List">
-            {projects.map((project, index) => (
-              <div key={index} className="Project_Container">
-                <div className="Project_Item" onClick={() => setSelectedProjectIndex(index)}>
-                  {editingProjectIndex === index ? (
-                    <input
-                      type="text"
-                      value={editingProjectName}
-                      onChange={handleEditProjectNameChange}
-                      onBlur={() => handleEditProjectNameSubmit(index)}
-                      onKeyPress={(e) => e.key === 'Enter' && handleEditProjectNameSubmit(index)}
-                      autoFocus
-                    />
-                  ) : (
-                    <>
-                      <span onDoubleClick={() => handleEditProject(index)}>{project.name}</span>
-                      <FaTrash onClick={() => handleDeleteProject(index)} className="Delete_Icon" />
-                    </>
-                  )}
-                </div>
-                <span className="Task_Counter">{project.todos.length}</span>
-              </div>
-            ))}
-          </div>
+  {projects.map((project, index) => (
+    <div key={index} className="Project_Container">
+      <div 
+        className={`Project_Item ${selectedProjectIndex === index ? 'Project_Item_Selected' : ''}`}
+        onClick={() => setSelectedProjectIndex(index)}
+      >
+        {editingProjectIndex === index ? (
+          <input
+            type="text"
+            value={editingProjectName}
+            onChange={handleEditProjectNameChange}
+            onBlur={() => handleEditProjectNameSubmit(index)}
+            onKeyPress={(e) => e.key === 'Enter' && handleEditProjectNameSubmit(index)}
+            autoFocus
+          />
+        ) : (
+          <>
+            <span onDoubleClick={() => handleEditProject(index)}>{project.name}</span>
+            <FaTrash onClick={(e) => { e.stopPropagation(); handleDeleteProject(index); }} className="Delete_Icon" />
+          </>
+        )}
+      </div>
+      <span className="Task_Counter">{project.todos.length}</span>
+    </div>
+  ))}
+</div>
         </div>
         <div className="Notes">
           {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&
