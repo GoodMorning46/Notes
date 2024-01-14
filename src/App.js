@@ -10,11 +10,13 @@ function App() {
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(-1);
   const [editingProjectIndex, setEditingProjectIndex] = useState(-1);
   const [editingProjectName, setEditingProjectName] = useState('');
+  const [selectedNoteIndex, setSelectedNoteIndex] = useState(0); // Ajout pour gérer l'index de la note sélectionnée
 
   useEffect(() => {
     let savedProjects = JSON.parse(localStorage.getItem('projects')) || [];
     savedProjects = savedProjects.map(project => ({
       ...project,
+      notes: project.notes || [''], // Assurez-vous que chaque projet a une liste de notes
       todos: project.todos || []
     }));
     setProjects(savedProjects);
@@ -26,7 +28,7 @@ function App() {
 
   const handleAddProject = () => {
     if (newProjectName.trim()) {
-      const newProject = { name: newProjectName, note: '', todos: [] };
+      const newProject = { name: newProjectName, notes: [''], todos: [] };
       const updatedProjects = [...projects, newProject];
       setProjects(updatedProjects);
       saveProjects(updatedProjects);
@@ -61,10 +63,21 @@ function App() {
     }
   };
 
-  const handleUpdateNote = (newNoteContent) => {
+  const handleAddNote = () => {
+    if (selectedProjectIndex !== -1) {
+      const updatedProjects = projects.map((project, index) => 
+        index === selectedProjectIndex ? { ...project, notes: [...project.notes, ''] } : project
+      );
+      setProjects(updatedProjects);
+      saveProjects(updatedProjects);
+    }
+  };
+
+  const handleUpdateNote = (newNoteContent, noteIndex) => {
     const updatedProjects = projects.map((project, index) => {
       if (index === selectedProjectIndex) {
-        return { ...project, note: newNoteContent };
+        const updatedNotes = project.notes.map((note, ni) => ni === noteIndex ? newNoteContent : note);
+        return { ...project, notes: updatedNotes };
       }
       return project;
     });
@@ -133,13 +146,27 @@ function App() {
 </div>
         </div>
         <div className="Notes">
-          {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&
-            <Notes
-              content={projects[selectedProjectIndex].note}
-              onContentChange={handleUpdateNote}
-            />
-          }
-        </div>
+        {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&
+  <div className="notes-tabs">
+    {projects[selectedProjectIndex].notes.map((note, index) => (
+      <div
+        key={index}
+        className={`notes-tab ${index === selectedNoteIndex ? 'notes-tab-active' : ''}`}
+        onClick={() => setSelectedNoteIndex(index)}
+      >
+        Note {index + 1}
+      </div>
+    ))}
+    <button onClick={handleAddNote} className="notes-tab">Ajouter Note</button>
+  </div>
+}
+        {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&
+          <Notes
+            content={projects[selectedProjectIndex].notes[selectedNoteIndex]}
+            onContentChange={(content) => handleUpdateNote(content, selectedNoteIndex)}
+          />
+        }
+      </div>
         <div className="Todo">
           {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&
             <TodoList

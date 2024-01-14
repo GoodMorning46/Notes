@@ -53,9 +53,6 @@ padding: 5px 0;
 }
 
 
-.notes-tabs {
-  margin-bottom: 10px;
-}
 
 .tab-item {
   margin-right: 5px;
@@ -66,4 +63,81 @@ padding: 5px 0;
   font-weight: bold;
   text-decoration: underline;
 }
+
+.notes-tabs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.notes-tab {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px 15px;
+  margin-right: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.notes-tab:hover {
+  background-color: #e0e0e0;
+}
+
+.notes-tab-active {
+  background-color: #e0e0e0;
+  font-weight: bold; /* Pour mettre en évidence l'onglet actif */
+}
+
+/* Autres styles que vous pourriez ajouter */
+
+.notes-tab-button {
+  background-color: #007bff; /* Couleur de fond pour le bouton "Ajouter Note" */
+  color: #fff; /* Couleur du texte pour le bouton "Ajouter Note" */
+  border: none;
+  border-radius: 4px;
+  padding: 5px 15px;
+  cursor: pointer;
+}
+
+.notes-tab-button:hover {
+  background-color: #0056b3; /* Couleur de fond au survol du bouton */
+}
+
+.tab-item {
+  margin-right: 10px;
+  padding: 5px 10px;
+  background-color: #f8f9fa; /* Couleur de fond légère */
+  border: 1px solid #dee2e6; /* Bordure */
+  border-radius: 5px; /* Bord arrondi */
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.tab-item.active {
+  background-color: #007bff; /* Couleur active comme dans App.css */
+  color: white; /* Texte blanc pour contraste */
+}
+
+.tab-item:hover {
+  background-color: #0056b3; /* Couleur au survol, plus foncée */
+}
+
+.delete-note-btn {
+  background-color: red;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.delete-note-btn:hover {
+  background-color: darkred;
+}
+
+
 
