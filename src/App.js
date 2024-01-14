@@ -152,7 +152,7 @@ function App() {
           </>
         )}
       </div>
-      <span className={`Task_Counter ${project.todos.length === 0 ? 'counter-green' : 'counter-red'}`}>
+      <span className={`Task_Counter ${project.todos.length === 0 ? 'counter-green' : 'counter-bleu'}`}>
         {project.todos.length}
       </span>
     </div>
