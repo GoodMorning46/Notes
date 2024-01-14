@@ -34,7 +34,7 @@ const TodoList = ({ todos, onAddTodo, onDeleteTodo }) => {
         onKeyPress={handleKeyPress}
         placeholder="Ajouter une nouvelle tâche"
       />
-      <button className="todo-add-button" onClick={addTodo}>Ajouter</button>
+      <button className="todo-add-button" onClick={addTodo}>Ajouter une tâche</button>
       <ul className="todo-list">
         {todos.map((todo) => (
           <li key={todo.id} className="todo-list-item">

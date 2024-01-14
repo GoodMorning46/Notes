@@ -127,7 +127,7 @@ function App() {
                 onKeyPress={(e) => e.key === 'Enter' && handleAddProject()}
                 placeholder="Nom du projet"
               />
-              <button onClick={handleAddProject}>Projet +</button>
+              <button onClick={handleAddProject}>Ajouter un projet</button>
           </div>
           <div className="Projects_List">
   {projects.map((project, index) => (
@@ -161,7 +161,7 @@ function App() {
         </div>
         <div className="Notes">
         {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&
-  <div className="notes-tabs">
+  <div className="notes-tabs-container">
   {projects[selectedProjectIndex].notes.map((note, index) => (
     <div
       key={index}
@@ -172,7 +172,7 @@ function App() {
       <FaTrash onClick={(e) => { e.stopPropagation(); handleDeleteNote(selectedProjectIndex, index); }} className="Delete_Icon" />
     </div>
   ))}
-  <button onClick={handleAddNote} className="notes-tab">Ajouter Note</button>
+<button onClick={handleAddNote} className="add-note-button">Ajouter une note</button>
 </div>
 }
         {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&

@@ -71,24 +71,26 @@ padding: 5px 0;
   margin-bottom: 10px;
 }
 
+/* Style des onglets de notes */
 .notes-tab {
-  background-color: #f8f8f8;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 5px 15px;
-  margin-right: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  padding: 5px 10px; /* Réduire le padding pour des onglets plus petits */
+  font-size: 0.8em; /* Réduire la taille de police */
+  margin-right: 5px; /* Espacement entre les onglets */
+  display: inline-block; /* Afficher les onglets en ligne */
+  border-radius: 5px; /* Bordures arrondies */
+  background-color: #f0f0f0; /* Couleur de fond de l'onglet */
+  cursor: pointer; /* Style de curseur pour indiquer la sélection */
+}
+
+/* Style lorsque l'onglet est actif */
+.notes-tab-active {
+  background-color: #e0e0e0; /* Couleur de fond pour l'onglet actif */
 }
 
 .notes-tab:hover {
   background-color: #e0e0e0;
 }
 
-.notes-tab-active {
-  background-color: #e0e0e0;
-  font-weight: bold; /* Pour mettre en évidence l'onglet actif */
-}
 
 /* Autres styles que vous pourriez ajouter */
 
@@ -138,6 +140,8 @@ padding: 5px 0;
 .delete-note-btn:hover {
   background-color: darkred;
 }
+
+
 
 
 
