@@ -11,7 +11,7 @@ const toolbarOptions = [
   ['link', 'image'],
 ];
 
-const Notes = ({ content, onContentChange }) => {
+const Notes = ({ content, onContentChange, onDeleteNote }) => {
   const [editorHtml, setEditorHtml] = useState('');
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const Notes = ({ content, onContentChange }) => {
 
   return (
     <div className="notes-container">
-      <ReactQuill 
+      <ReactQuill
         value={editorHtml}
         onChange={handleChange}
         modules={{ toolbar: toolbarOptions }}

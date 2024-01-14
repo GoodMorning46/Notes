@@ -85,6 +85,18 @@ function App() {
     saveProjects(updatedProjects);
   };
 
+  const handleDeleteNote = (projectIndex, noteIndex) => {
+    const updatedProjects = projects.map((project, index) => {
+      if (index === projectIndex) {
+        const updatedNotes = project.notes.filter((_, ni) => ni !== noteIndex);
+        return { ...project, notes: updatedNotes };
+      }
+      return project;
+    });
+    setProjects(updatedProjects);
+    saveProjects(updatedProjects);
+  };
+
   const handleAddTodo = (newTodo) => {
     const updatedProjects = projects.map((project, index) => 
       index === selectedProjectIndex ? { ...project, todos: [...project.todos, newTodo] } : project
@@ -148,23 +160,25 @@ function App() {
         <div className="Notes">
         {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&
   <div className="notes-tabs">
-    {projects[selectedProjectIndex].notes.map((note, index) => (
-      <div
-        key={index}
-        className={`notes-tab ${index === selectedNoteIndex ? 'notes-tab-active' : ''}`}
-        onClick={() => setSelectedNoteIndex(index)}
-      >
-        Note {index + 1}
-      </div>
-    ))}
-    <button onClick={handleAddNote} className="notes-tab">Ajouter Note</button>
-  </div>
+  {projects[selectedProjectIndex].notes.map((note, index) => (
+    <div
+      key={index}
+      className={`notes-tab ${index === selectedNoteIndex ? 'notes-tab-active' : ''}`}
+      onClick={() => setSelectedNoteIndex(index)}
+    >
+      Note {index + 1}
+      <FaTrash onClick={(e) => { e.stopPropagation(); handleDeleteNote(selectedProjectIndex, index); }} className="Delete_Icon" />
+    </div>
+  ))}
+  <button onClick={handleAddNote} className="notes-tab">Ajouter Note</button>
+</div>
 }
         {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&
           <Notes
-            content={projects[selectedProjectIndex].notes[selectedNoteIndex]}
-            onContentChange={(content) => handleUpdateNote(content, selectedNoteIndex)}
-          />
+          content={projects[selectedProjectIndex].notes[selectedNoteIndex]}
+          onContentChange={(content) => handleUpdateNote(content, selectedNoteIndex)}
+          onDeleteNote={() => handleDeleteNote(selectedProjectIndex, selectedNoteIndex)}
+        />
         }
       </div>
         <div className="Todo">
