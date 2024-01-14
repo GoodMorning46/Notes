@@ -146,4 +146,14 @@
   margin-left: 10px;
 }
 
+.counter-green {
+  background-color: #AAD577; /* Vert vif */
+  /* Autres styles nécessaires pour la pastille */
+}
+
+.counter-red {
+  background-color: red; /* Couleur de fond pour 1 tâche ou plus */
+  /* Autres styles nécessaires pour la pastille */
+}
+
 
