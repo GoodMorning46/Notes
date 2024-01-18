@@ -14,7 +14,7 @@ const toolbarOptions = [
   ['link', 'image'],
 ];
 
-const Notes = ({ content, onContentChange, onDeleteNote }) => {
+const Notes = ({ content, onContentChange, onDeleteNote, selectedNoteIndex }) => {
   const [editorHtml, setEditorHtml] = useState('');
   const [isDrawingMode, setIsDrawingMode] = useState(false);
 
@@ -33,9 +33,10 @@ const Notes = ({ content, onContentChange, onDeleteNote }) => {
 
   return (
     <div className="notes-container">
-      <button onClick={handleToggleDrawingMode}>
-        {isDrawingMode ? 'Retour à l\'édition' : 'Dessiner'}
-      </button>
+    {/* Positionnez le bouton "Dessiner" en haut à droite */}
+    <button onClick={handleToggleDrawingMode} className="button-draw">
+      {isDrawingMode ? 'Retour à l\'édition' : 'Dessiner'}
+    </button>
       {isDrawingMode ? (
         <Tldraw />
       ) : (

@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+
 .notes-container {
   width: 95%;
   margin: 0 auto;
@@ -7,6 +10,7 @@
   position: relative;
   margin-left: 0%;
   padding: 3%;
+  position: relative;
 }
 
 .ql-container {
@@ -140,6 +144,27 @@ padding: 5px 0;
 .delete-note-btn:hover {
   background-color: darkred;
 }
+
+/* Ajoutez ce style dans votre fichier Notes.css */
+.button-draw {
+  padding: 4px 8px;
+  margin: 8px;
+  background-color: #007BFF; /* Bleu par défaut, changez selon le thème de votre app */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease;
+  position: absolute;
+  z-index: 10;   /* Assurez-vous que cela est supérieur à tout autre z-index dans la note */
+  margin-top: -30px;
+}
+
+.button-draw:hover {
+  background-color: #0056b3; /* Une teinte de bleu plus foncée pour le survol */
+}
+
 
 
 
