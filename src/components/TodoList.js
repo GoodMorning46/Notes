@@ -1,27 +1,29 @@
 import React, { useState } from 'react';
-import { FaTrashAlt } from 'react-icons/fa';
 import "./css/TodoList.css";
 
-const TodoList = ({ todos, setTodos, saveProjects }) => {
-  const [newTodo, setNewTodo] = useState('');
+const TodoList = ({ todos, setTodos }) => {  const [newTodo, setNewTodo] = useState('');
 
-  const addTodo = () => {
-    if (!newTodo.trim()) return;
-    const newTodoItem = {
-      id: Math.random().toString(),
-      text: newTodo
-    };
-    const updatedTodos = [...todos, newTodoItem];
-    setTodos(updatedTodos);
-    saveProjects();
-    setNewTodo('');
+const addTodo = () => {
+  if (!newTodo.trim()) return;
+  const newTodoItem = {
+    id: Math.random().toString(),
+    text: newTodo
   };
+  const updatedTodos = [...todos, newTodoItem];
+  setTodos(updatedTodos);
+  setNewTodo('');
+  saveProjects(updatedTodos); // Mettre à jour pour passer les todos mis à jour
+};
 
-  const deleteTodo = (todoId) => {
-    const updatedTodos = todos.filter(todo => todo.id !== todoId);
-    setTodos(updatedTodos);
-    saveProjects();
-  };
+const deleteTodo = (todoId) => {
+  const updatedTodos = todos.filter(todo => todo.id !== todoId);
+  setTodos(updatedTodos);
+  saveProjects(updatedTodos); // Mettre à jour pour passer les todos mis à jour
+};
+
+const saveProjects = (updatedTodos) => {
+  localStorage.setItem('todos', JSON.stringify(updatedTodos));
+};
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
@@ -29,13 +31,13 @@ const TodoList = ({ todos, setTodos, saveProjects }) => {
     }
   };
 
-  // Vérification si 'todos' est défini et est un tableau
   if (!todos) {
     return <div>Aucune tâche.</div>;
   }
 
   return (
     <div className="todo-container">
+      <h2>Liste des tâches</h2>
       <input
         className="todo-input"
         value={newTodo}
@@ -47,12 +49,11 @@ const TodoList = ({ todos, setTodos, saveProjects }) => {
       <ul className="todo-list">
         {todos.map((todo) => (
           <li key={todo.id} className="todo-list-item">
-            {todo.text}
-            <FaTrashAlt
-              className="delete-icon"
+            <input 
+              type="checkbox" 
               onClick={() => deleteTodo(todo.id)}
-              style={{ cursor: 'pointer', marginLeft: '10px' }}
             />
+            {todo.text}
           </li>
         ))}
       </ul>

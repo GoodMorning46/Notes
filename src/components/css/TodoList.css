@@ -43,7 +43,8 @@
     display: flex;
     align-items: center;
     padding: 10px;
-    border-bottom: 1px solid #ddd;
+    color: #615EEF; /* Couleur du texte en violet */
+    font-size: 1em;
   }
   
   .todo-list-item-text {
@@ -52,11 +53,30 @@
     margin-right: 10px; /* Espace entre le texte et l'icône */
   }
   
-  .delete-icon {
-    flex-shrink: 0; /* Empêche l'icône de rétrécir */
-    cursor: pointer;
-  }
-  
+
+  /* Style pour la checkbox non cochée */
+.todo-list-item input[type="checkbox"] {
+  width: 15px; /* Taille de la checkbox */
+  height: 15px;
+  margin-right: 10px;
+  vertical-align: middle;
+  border: 2px solid #615EEF; /* Bord violet */
+  appearance: none; /* Enlève le style par défaut */
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+/* Style pour la checkbox cochée */
+.todo-list-item input[type="checkbox"]:checked {
+  background-color: #615EEF; /* Fond violet */
+}
+
+.todo-container h2 {
+  font-size: 1.5em; /* Taille du texte du titre */
+  /* Autres styles selon vos préférences */
+}
   
   
   
