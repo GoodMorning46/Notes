@@ -2,16 +2,25 @@ import React, { useState } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
 import "./css/TodoList.css";
 
-const TodoList = ({ todos, onAddTodo, onDeleteTodo }) => {
+const TodoList = ({ todos, setTodos, saveProjects }) => {
   const [newTodo, setNewTodo] = useState('');
 
   const addTodo = () => {
     if (!newTodo.trim()) return;
-    onAddTodo({
+    const newTodoItem = {
       id: Math.random().toString(),
       text: newTodo
-    });
+    };
+    const updatedTodos = [...todos, newTodoItem];
+    setTodos(updatedTodos);
+    saveProjects();
     setNewTodo('');
+  };
+
+  const deleteTodo = (todoId) => {
+    const updatedTodos = todos.filter(todo => todo.id !== todoId);
+    setTodos(updatedTodos);
+    saveProjects();
   };
 
   const handleKeyPress = (e) => {
@@ -41,7 +50,7 @@ const TodoList = ({ todos, onAddTodo, onDeleteTodo }) => {
             {todo.text}
             <FaTrashAlt
               className="delete-icon"
-              onClick={() => onDeleteTodo(todo.id)}
+              onClick={() => deleteTodo(todo.id)}
               style={{ cursor: 'pointer', marginLeft: '10px' }}
             />
           </li>

@@ -6,6 +6,7 @@ import TodoList from './components/TodoList';
 
 function App() {
   const [projects, setProjects] = useState([]);
+  const [todos, setTodos] = useState([]);
   const [newProjectName, setNewProjectName] = useState('');
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(-1);
   const [editingProjectIndex, setEditingProjectIndex] = useState(-1);
@@ -20,11 +21,14 @@ function App() {
       todos: project.todos || []
     }));
     setProjects(savedProjects);
-  }, []);
+    const savedTodos = JSON.parse(localStorage.getItem('todos')) || [];
+  setTodos(savedTodos);
+}, []);
 
-  const saveProjects = (newProjects) => {
-    localStorage.setItem('projects', JSON.stringify(newProjects));
-  };
+const saveProjects = () => {
+  localStorage.setItem('projects', JSON.stringify(projects));
+  localStorage.setItem('todos', JSON.stringify(todos));
+};
 
   const handleAddProject = () => {
     if (newProjectName.trim()) {
@@ -97,22 +101,6 @@ function App() {
     saveProjects(updatedProjects);
   };
 
-  const handleAddTodo = (newTodo) => {
-    const updatedProjects = projects.map((project, index) => 
-      index === selectedProjectIndex ? { ...project, todos: [...project.todos, newTodo] } : project
-    );
-    setProjects(updatedProjects);
-    saveProjects(updatedProjects);
-  };
-
-  const handleDeleteTodo = (todoId) => {
-    const updatedProjects = projects.map((project, index) => 
-      index === selectedProjectIndex ? { ...project, todos: project.todos.filter(todo => todo.id !== todoId) } : project
-    );
-    setProjects(updatedProjects);
-    saveProjects(updatedProjects);
-  };
-
   return (
     <div className="App">
       <div className="bord1"></div>
@@ -152,9 +140,6 @@ function App() {
           </>
         )}
       </div>
-      <span className={`Task_Counter ${project.todos.length === 0 ? 'counter-green' : 'counter-bleu'}`}>
-        {project.todos.length}
-      </span>
     </div>
   ))}
 </div>
@@ -184,13 +169,11 @@ function App() {
         }
       </div>
         <div className="Todo">
-          {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&
             <TodoList
-              todos={projects[selectedProjectIndex].todos}
-              onAddTodo={handleAddTodo}
-              onDeleteTodo={handleDeleteTodo}
+              todos={todos}
+              setTodos={setTodos}
+              saveProjects={saveProjects}
             />
-          }
         </div>
       </div>
       <div className="bord1"></div>

@@ -5,7 +5,6 @@ import './css/Notes.css';
 import { Tldraw } from '@tldraw/tldraw';
 import '@tldraw/tldraw/tldraw.css'
 
-
 const toolbarOptions = [
   [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
   ['bold', 'italic', 'underline', 'strike'],
@@ -21,22 +20,26 @@ const Notes = ({ content, onContentChange, onDeleteNote, selectedNoteIndex }) =>
   const handleToggleDrawingMode = () => {
     setIsDrawingMode(!isDrawingMode);
   };
-
+  
   useEffect(() => {
-    setEditorHtml(content);
-  }, [content]);
+    // Assurez-vous que le contenu est chargé correctement
+    if (content !== editorHtml) {
+      setEditorHtml(content);
+    }
+  }, [content, editorHtml]);
 
   const handleChange = (content, delta, source, editor) => {
+    console.log("Editor HTML content:", editor.getHTML()); // Ajouter ceci pour déboguer
     onContentChange(content);
     setEditorHtml(content);
   };
 
   return (
     <div className="notes-container">
-    {/* Positionnez le bouton "Dessiner" en haut à droite */}
-    <button onClick={handleToggleDrawingMode} className="button-draw">
-      {isDrawingMode ? 'Retour à l\'édition' : 'Dessiner'}
-    </button>
+      {/* Positionnez le bouton "Dessiner" en haut à droite */}
+      <button onClick={handleToggleDrawingMode} className="button-draw">
+        {isDrawingMode ? 'Retour à l\'édition' : 'Dessiner'}
+      </button>
       {isDrawingMode ? (
         <Tldraw />
       ) : (
@@ -47,7 +50,7 @@ const Notes = ({ content, onContentChange, onDeleteNote, selectedNoteIndex }) =>
           theme="snow"
         />
       )}
-    </div>  // Ajout de la balise de fermeture </div>
+    </div>
   );
 };
 
