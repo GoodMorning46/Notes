@@ -1,13 +1,18 @@
+body {
+  font-family: 'inter';
+}
+
 /* TodoList.css */
 .todo-container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 3px;
-    max-width: 370px;
-    margin: auto;
-    margin-top: 5%;
-    height: 660px;
-  }
+  background-color: #F6F8FB;
+  padding: 20px;
+  border-radius: 3px;
+  max-width: 370px;
+  margin: auto;
+  margin-top: 5%;
+  height: 660px;
+  position: relative;
+}
   
   .todo-input {
     width: 100%;
@@ -21,15 +26,32 @@
   .todo-add-button {
     width: 100%;
     padding: 10px;
-    background-color: #615EEF;
-    color: white;
+    background-color: #EDF0FF;
+    color: #615EEF;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    text-align: left; /* Alignement du texte à gauche */
+    display: flex; /* Utilisez flexbox pour aligner l'icône et le texte */
+    align-items: center; /* Centre verticalement l'icône et le texte */
+    justify-content: flex-start; /* Démarre le contenu du bouton à gauche */
+  }
+
+  .todo-add-button .fa {
+    margin-right: 10px; /* Ajoutez un espace à droite de l'icône */
+  }
+  
+  .todo-list-item input[type="text"] {
+    width: 100%; /* Largeur complète */
+    padding: 8px; /* Espacement intérieur */
+    margin: 5px 0; /* Marge externe */
+    border: 1px solid #ccc; /* Bordure de la barre d'édition */
+    border-radius: 4px; /* Coins arrondis */
   }
   
   .todo-add-button:hover {
     background-color: #615EEF;
+    color: white;
   }
   
   .todo-list {

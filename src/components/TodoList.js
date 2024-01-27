@@ -1,59 +1,78 @@
-import React, { useState } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import "./css/TodoList.css";
+import { FaPlus } from 'react-icons/fa';
 
-const TodoList = ({ todos, setTodos }) => {  const [newTodo, setNewTodo] = useState('');
 
-const addTodo = () => {
-  if (!newTodo.trim()) return;
-  const newTodoItem = {
-    id: Math.random().toString(),
-    text: newTodo
+const TodoList = ({ todos, setTodos }) => {
+  const newTodoRef = useRef(null);
+
+  const addTodo = () => {
+    const newTodoItem = {
+      id: Math.random().toString(),
+      text: '',
+      isEditing: true
+    };
+    const updatedTodos = [...todos, newTodoItem];
+    setTodos(updatedTodos);
+    saveProjects(updatedTodos);
   };
-  const updatedTodos = [...todos, newTodoItem];
-  setTodos(updatedTodos);
-  setNewTodo('');
-  saveProjects(updatedTodos); // Mettre à jour pour passer les todos mis à jour
-};
 
-const deleteTodo = (todoId) => {
-  const updatedTodos = todos.filter(todo => todo.id !== todoId);
-  setTodos(updatedTodos);
-  saveProjects(updatedTodos); // Mettre à jour pour passer les todos mis à jour
-};
+  const handleEditTodo = (e, todoId) => {
+    const updatedTodos = todos.map(todo =>
+      todo.id === todoId ? { ...todo, text: e.target.value } : todo
+    );
+    setTodos(updatedTodos);
+  };
 
-const saveProjects = (updatedTodos) => {
-  localStorage.setItem('todos', JSON.stringify(updatedTodos));
-};
+  const handleFinishEdit = (todoId) => {
+    const updatedTodos = todos.map(todo =>
+      todo.id === todoId ? { ...todo, isEditing: false } : todo
+    );
+    setTodos(updatedTodos);
+    saveProjects(updatedTodos);
+  };
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      addTodo();
+  const deleteTodo = (todoId) => {
+    const updatedTodos = todos.filter(todo => todo.id !== todoId);
+    setTodos(updatedTodos);
+    saveProjects(updatedTodos);
+  };
+
+  useEffect(() => {
+    if (todos.length > 0 && todos[todos.length - 1].isEditing) {
+      newTodoRef.current?.focus();
     }
-  };
+  }, [todos]);
 
-  if (!todos) {
-    return <div>Aucune tâche.</div>;
-  }
+  const saveProjects = useCallback((todos) => {
+    const todosForSaving = todos.map(todo => ({ ...todo, isEditing: false }));
+    localStorage.setItem('todos', JSON.stringify(todosForSaving));
+  }, []);
 
   return (
     <div className="todo-container">
       <h2>Liste des tâches</h2>
-      <input
-        className="todo-input"
-        value={newTodo}
-        onChange={(e) => setNewTodo(e.target.value)}
-        onKeyPress={handleKeyPress}
-        placeholder="Ajouter une nouvelle tâche"
-      />
-      <button className="todo-add-button" onClick={addTodo}>Ajouter une tâche</button>
+      <button className="todo-add-button" onClick={addTodo}>
+  <FaPlus className="fa" /> Créer une tâche
+</button>
       <ul className="todo-list">
-        {todos.map((todo) => (
+        {todos.map((todo, index) => (
           <li key={todo.id} className="todo-list-item">
-            <input 
-              type="checkbox" 
-              onClick={() => deleteTodo(todo.id)}
-            />
-            {todo.text}
+            {todo.isEditing ? (
+              <input
+                ref={index === todos.length - 1 ? newTodoRef : null}
+                type="text"
+                value={todo.text}
+                onChange={(e) => handleEditTodo(e, todo.id)}
+                onBlur={() => handleFinishEdit(todo.id)}
+                onKeyPress={(e) => e.key === 'Enter' && handleFinishEdit(todo.id)}
+              />
+            ) : (
+              <>
+                <input type="checkbox" onClick={() => deleteTodo(todo.id)} />
+                {todo.text}
+              </>
+            )}
           </li>
         ))}
       </ul>
