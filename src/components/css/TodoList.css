@@ -62,9 +62,10 @@ body {
   .todo-list-item {
     display: flex;
     align-items: center;
-    color: #615EEF; /* Couleur du texte en violet */
+    color: #615EEF; /* Couleur du texte */
     font-size: 1em;
     padding-top: 5%;
+    position: relative;
   }
   
   .todo-list-item-text {
@@ -97,6 +98,17 @@ body {
   font-size: 1.5em; /* Taille du texte du titre */
   margin-top: -1%;
 }
-  
-  
-  
+
+.todo-menu-button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  margin-left: auto; /* Aligner à droite dans un conteneur flex */
+}
+
+
+
+
+
+
+
