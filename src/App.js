@@ -149,15 +149,15 @@ const saveProjects = () => {
   <div className="notes-tabs-container">
   {projects[selectedProjectIndex].notes.map((note, index) => (
     <div
-      key={index}
-      className={`notes-tab ${index === selectedNoteIndex ? 'notes-tab-active' : ''}`}
-      onClick={() => setSelectedNoteIndex(index)}
-    >
-      Note {index + 1}
-      <FaTrash onClick={(e) => { e.stopPropagation(); handleDeleteNote(selectedProjectIndex, index); }} className="Delete_Icon" />
-    </div>
+    key={index}
+    className={`notes-tab ${index === selectedNoteIndex ? 'notes-tab-active' : ''} onglet-note`}
+    onClick={() => setSelectedNoteIndex(index)}>
+    <span className="note-text-class">Note {index + 1}</span>
+    <FaTrash onClick={(e) => { e.stopPropagation(); handleDeleteNote(selectedProjectIndex, index); }} className="Delete_Icon" />
+  </div>
+  
   ))}
-<button onClick={handleAddNote} className="add-note-button">Ajouter une note</button>
+<button onClick={handleAddNote} className="add-note-button">Créer une note</button>
 </div>
 }
         {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&

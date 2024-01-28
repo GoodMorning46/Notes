@@ -63,7 +63,7 @@ body {
     display: flex;
     align-items: center;
     color: #615EEF; /* Couleur du texte */
-    font-size: 1em;
+    font-size: 0.9em;
     padding-top: 5%;
     position: relative;
   }

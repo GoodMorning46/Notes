@@ -135,41 +135,31 @@
 
 /* Style du bouton pour ajouter des notes */
 .add-note-button {
+  background-color: #EDF0FF;
+  color: #615EEF; /* Couleur de texte */
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
   padding: 5px 10px; /* Padding similaire aux onglets */
   font-size: 0.8em; /* Taille de police similaire aux onglets */
-  background-color: #4CAF50; /* Couleur de fond distincte */
-  color: white; /* Couleur de texte */
-  border: none; /* Pas de bordure */
-  border-radius: 5px; /* Bordures arrondies */
-  cursor: pointer; /* Style de curseur pour indiquer la sélection */
   transition: background-color 0.3s; /* Transition pour l'effet au survol */
 }
 
-.add-note-button:hover {
-  background-color: #45a049; /* Changement de couleur au survol */
+.add-note-button:hover { /* Changement de couleur au survol */
+  background-color: #615EEF;
+  color: white; 
 }
 
 /* Style du conteneur des onglets */
 .notes-tabs-container {
-  display: flex;
-  justify-content: center;
-  padding: 10px 0;
+  display: flex; /* Utiliser flexbox pour l'alignement */
+  justify-content: flex-start; /* Aligner les éléments à gauche */
+  margin-left: 3%;
+  margin-top: 1%;
+  padding-bottom: 1.5%;
+  width: 100%;
 }
 
-/* Style des onglets individuels */
-.notes-tab {
-  margin: 0 5px; /* Espacement entre les onglets */
-  padding: 5px 10px; /* Padding intérieur des onglets */
-  background-color: white; /* Fond blanc pour les onglets */
-  border: 1px solid #ccc; /* Bordure légère pour les onglets */
-  border-radius: 5px; /* Bordures arrondies */
-  cursor: pointer;
-}
-
-/* Style pour l'onglet actif */
-.notes-tab-active {
-  background-color: #e0e0e0; /* Couleur de fond différente pour l'onglet actif */
-}
 
 
 
