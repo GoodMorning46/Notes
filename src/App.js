@@ -103,11 +103,10 @@ const saveProjects = () => {
 
   return (
     <div className="App">
-      <div className="bord1"></div>
       <div className="Bloc_parent">
         <div className="Menu_gauche">
           <h1 className="Board">Board</h1>
-          <div className="Project_Creation">
+          <div className="TextInput_Button_Project"> {/*TextInput et bouton Ajouter un projet*/}
               <input
                 type="text"
                 value={newProjectName}
@@ -176,7 +175,6 @@ const saveProjects = () => {
             />
         </div>
       </div>
-      <div className="bord1"></div>
     </div>
   );
 }

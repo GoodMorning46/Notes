@@ -62,7 +62,7 @@ body {
   .todo-list-item {
     display: flex;
     align-items: center;
-    color: #615EEF; /* Couleur du texte */
+    color: black; /* Couleur du texte */
     font-size: 0.9em;
     padding-top: 5%;
     position: relative;
@@ -81,7 +81,7 @@ body {
   height: 20px;
   margin-right: 10px;
   vertical-align: middle;
-  border: 2px solid #615EEF; /* Bord violet */
+  border: 2px solid black; /* Bord violet */
   appearance: none; /* Enlève le style par défaut */
   -webkit-appearance: none;
   outline: none;

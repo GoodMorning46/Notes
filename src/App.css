@@ -3,12 +3,6 @@
   height: 100vh;
 }
 
-.bord1 {
-  width: 100%;
-  height: 12px;
-  background-color: white;
-}
-
 .Bloc_parent {
   display: flex;
   justify-content: space-between;
@@ -37,7 +31,7 @@
   height: 97vh;
 }
 
-.Project_Creation {
+.TextInput_Button_Project {
   padding: 20px;
   border-radius: 10px;
   display: flex;
@@ -46,7 +40,7 @@
   margin-bottom: 20px;
 }
 
-.Project_Creation input {
+.TextInput_Button_Project input {
   width: 100%;
   padding: 10px;
   border: 1px solid #dee2e6;
@@ -56,12 +50,12 @@
   transition: all 0.2s ease-in-out;
 }
 
-.Project_Creation input:focus {
+.TextInput_Button_Project input:focus {
   border-color: #007bff;
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 
-.Project_Creation button {
+.TextInput_Button_Project button {
   width: 100%;
   padding: 10px 15px;
   background-color: #007bff;
@@ -72,7 +66,7 @@
   transition: background-color 0.2s ease-in-out;
 }
 
-.Project_Creation button:hover {
+.TextInput_Button_Project button:hover {
   background-color: #0056b3;
 }
 
@@ -155,10 +149,11 @@
   display: flex; /* Utiliser flexbox pour l'alignement */
   justify-content: flex-start; /* Aligner les éléments à gauche */
   margin-left: 3%;
-  margin-top: 1%;
+  margin-top: 2%;
   padding-bottom: 1.5%;
   width: 100%;
 }
+
 
 
 
