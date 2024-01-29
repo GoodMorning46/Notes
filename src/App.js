@@ -133,7 +133,7 @@ function App() {
     <div className="App">
       <div className="Bloc_parent">
         <div className="Menu_gauche">
-          <h1 className="Board">Board</h1>
+          <h1 className="Board">R2D2</h1>
           <div className="TextInput_Button_Project"> {/*TextInput et bouton Ajouter un projet*/}
             <input
               type="text"
@@ -144,6 +144,7 @@ function App() {
             />
             <button onClick={handleAddProject}>Ajouter un projet</button>
           </div>
+          <p className='Titre_Projet'>Projets</p>
           <div className="Projects_List">
             {projects.map((project, index) => (
               <div key={index} className="Project_Container">

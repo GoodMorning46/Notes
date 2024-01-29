@@ -9,20 +9,11 @@ body {
   border-radius: 3px;
   max-width: 370px;
   margin: auto;
-  margin-top: 5%;
+  margin-top: 10.5%;
   height: 660px;
   position: relative;
   overflow: auto;
 }
-  
-  .todo-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
   
   .todo-add-button {
     width: 100%;
@@ -43,11 +34,9 @@ body {
   }
   
   .todo-list-item input[type="text"] {
-    width: 100%; /* Largeur complète */
-    padding: 8px; /* Espacement intérieur */
+    width: 180%; /* Largeur complète */
+    padding: 10px; /* Espacement intérieur */
     margin: 5px 0; /* Marge externe */
-    border: 1px solid #ccc; /* Bordure de la barre d'édition */
-    border-radius: 4px; /* Coins arrondis */
   }
   
   .todo-add-button:hover {

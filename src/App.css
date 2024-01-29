@@ -70,8 +70,13 @@
   background-color: #0056b3;
 }
 
+.Titre_Projet {
+  padding-left: 20px;
+  font-weight: bold;
+}
+
 .Projects_List {
-  padding: 10px;
+  padding-left: 20px;
 }
 
 .Project_Container {
