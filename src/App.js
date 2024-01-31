@@ -1,24 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { FaTrash } from 'react-icons/fa';
+import React, { useState, useEffect, useRef } from 'react';
+import { FaTrash, FaPlus  } from 'react-icons/fa';
 import './App.css';
 import Notes from './components/Notes';
 import TodoList from './components/TodoList';
 
 function App() {
-  const [projects, setProjects] = useState([{ name: "Projet 1", notes: ["Note 1", "Note 2"], lastSelectedNoteIndex: 0 },]);
+  const [projects, setProjects] = useState([]);
   const [todos, setTodos] = useState([]);
-  const [newProjectName, setNewProjectName] = useState('');
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(-1);
   const [editingProjectIndex, setEditingProjectIndex] = useState(-1);
   const [editingProjectName, setEditingProjectName] = useState('');
   const [selectedNoteIndex, setSelectedNoteIndex] = useState(0); // Ajout pour gérer l'index de la note sélectionnée
+  const [isCreatingProject, setIsCreatingProject] = useState(false);
+  const projectNameInputRef = useRef(null);
 
   // Récupère les données du localStorage
   useEffect(() => {
     let savedProjects = JSON.parse(localStorage.getItem('projects')) || [];
     savedProjects = savedProjects.map(project => ({
       ...project,
-      notes: project.notes || [''], 
+      notes: project.notes || [],
       todos: project.todos || []
     }));
     setProjects(savedProjects);
@@ -32,22 +33,27 @@ function App() {
     localStorage.setItem('todos', JSON.stringify(todos));
   };
 
-  // Ajoute un nouveau projet avec le nom saisi par l'utilisateur
-  const handleAddProject = () => {
-    if (newProjectName.trim()) {
-      const newProject = { name: newProjectName, notes: [''], todos: [] };
-      const updatedProjects = [...projects, newProject];
-      setProjects(updatedProjects);
-      saveProjects(updatedProjects);
-      setNewProjectName('');
-    }
+  // Double clic pour sélectionner le nom du projet à modifier
+  const handleEditProject = (id, newName) => {
+    const updatedProjects = projects.map(project =>
+      project.id === id ? { ...project, name: newName } : project
+    );
+    setProjects(updatedProjects);
   };
 
-  // Double clic pour sélectionner le nom du projet à modifier
-  const handleEditProject = (index) => {  
-    setEditingProjectIndex(index);
-    setEditingProjectName(projects[index].name);
-  };
+  const handleFinishEdit = (id) => {
+    const updatedProjects = projects.map(project =>
+      project.id === id ? { ...project, isEditing: false } : project
+    );
+    setProjects(updatedProjects);
+    
+    // Trouver l'index du projet qui vient d'être modifié
+    const projectIndex = updatedProjects.findIndex(project => project.id === id);
+    if (projectIndex !== -1) {
+      setSelectedProjectIndex(projectIndex);
+      setSelectedNoteIndex(0); // Sélectionner la première note du projet
+    }
+  };  
 
   // Modifier le nom d'un projet  
   const handleEditProjectNameChange = (e) => { 
@@ -129,48 +135,66 @@ function App() {
     setSelectedNoteIndex(lastSelectedNoteIndex);
   };
 
+  const addProject = () => {
+    const newProject = { id: Date.now(), name: '', isEditing: true, notes: [''] };
+    setProjects([...projects, newProject]);
+    setIsCreatingProject(true);
+  };
+
+  useEffect(() => {
+    if (isCreatingProject && projectNameInputRef.current) {
+      projectNameInputRef.current.focus();
+      setIsCreatingProject(false);
+    }
+  }, [isCreatingProject]);
+
+  
   return (
     <div className="App">
       <div className="Bloc_parent">
         <div className="Menu_gauche">
           <h1 className="Board">R2D2</h1>
-          <div className="TextInput_Button_Project"> {/*TextInput et bouton Ajouter un projet*/}
+          <div className="TitleButtonProject">
+            <p className='Titre_Projet'>Projets</p>
+            <button className="ButtonAddProject" onClick={addProject}><FaPlus /></button>
+          </div>
+          <div className="Projects_List">
+  {projects.map((project, index) => (
+    <div key={project.id} className="Project_Container">
+      {project.isEditing ? 
+        <input 
+          type="text" 
+          ref={projectNameInputRef}
+          value={project.name} 
+          onChange={(e) => handleEditProject(project.id, e.target.value)} 
+          onBlur={() => handleFinishEdit(project.id)} 
+        />
+        : 
+        <div 
+          className={`Project_Item ${selectedProjectIndex === index ? 'Project_Item_Selected' : ''}`} 
+          onClick={() => handleSelectProject(index)}
+        >
+          {editingProjectIndex === index ? (
             <input
               type="text"
-              value={newProjectName}
-              onChange={(e) => setNewProjectName(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleAddProject()}
-              placeholder="Nom du projet"
+              value={editingProjectName}
+              onChange={handleEditProjectNameChange}
+              onBlur={() => handleEditProjectNameSubmit(index)}
+              onKeyPress={(e) => e.key === 'Enter' && handleEditProjectNameSubmit(index)}
+              autoFocus
             />
-            <button onClick={handleAddProject}>Ajouter un projet</button>
-          </div>
-          <p className='Titre_Projet'>Projets</p>
-          <div className="Projects_List">
-            {projects.map((project, index) => (
-              <div key={index} className="Project_Container">
-                <div 
-                  className={`Project_Item ${selectedProjectIndex === index ? 'Project_Item_Selected' : ''}`}
-                  onClick={() => handleSelectProject(index)}
-                >
-                  {editingProjectIndex === index ? (
-                    <input
-                      type="text"
-                      value={editingProjectName}
-                      onChange={handleEditProjectNameChange}
-                      onBlur={() => handleEditProjectNameSubmit(index)}
-                      onKeyPress={(e) => e.key === 'Enter' && handleEditProjectNameSubmit(index)}
-                      autoFocus
-                    />
-                  ) : (
-                    <>
-                      <span onDoubleClick={() => handleEditProject(index)}>{project.name}</span>
-                      <FaTrash onClick={(e) => { e.stopPropagation(); handleDeleteProject(index); }} className="Delete_Icon" />
-                    </>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
+          ) : (
+            <>
+              <span onDoubleClick={() => handleEditProject(index)}>{project.name}</span>
+              <FaTrash onClick={(e) => { e.stopPropagation(); handleDeleteProject(index); }} className="Delete_Icon" />
+            </>
+          )}
+        </div>
+      }
+    </div>
+  ))}
+</div>
+
         </div>
         <div className="Notes">
           {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&

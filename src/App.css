@@ -32,12 +32,28 @@
 }
 
 .TextInput_Button_Project {
-  padding: 20px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+}
+
+.TitleButtonProject {
+  display: flex;
+  width: 100%;
+}
+
+.ButtonAddProject {
+  width: 18%;
+  margin-top: 5.5%;
+  margin-left: 5%;
+  height: 20px;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  margin-bottom: 10px; /* Espace entre le champ de saisie et le bouton */
+  outline: none;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
 }
 
 .TextInput_Button_Project input {
