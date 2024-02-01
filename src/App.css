@@ -11,9 +11,15 @@
 
 .Menu_gauche {
   width: 15%;
-  height: 97vh;
-  background-color: white;
+  height: 400px;
+  padding-left: 1%;
+  padding-right: 1%;
+  margin-left: 1%;
+  margin-top: 1%;
+  border-radius: 8px;
+  background-color: #F6F7FB;
 }
+
 
 .Board {
   text-align: center;
@@ -40,20 +46,25 @@
 
 .TitleButtonProject {
   display: flex;
+  justify-content: space-between;
   width: 100%;
 }
 
 .ButtonAddProject {
   width: 18%;
-  margin-top: 5.5%;
-  margin-left: 5%;
-  height: 20px;
-  border: 1px solid #dee2e6;
-  border-radius: 5px;
+  height: 40px;
   margin-bottom: 10px; /* Espace entre le champ de saisie et le bouton */
   outline: none;
-  transition: all 0.2s ease-in-out;
   cursor: pointer;
+  background-color: #8F99FA;
+  color: white;
+  border: none;
+  border-radius: 7px;
+}
+
+.ButtonAddProject:hover {
+  background-color: #615EEF;
+  color: white;
 }
 
 .TextInput_Button_Project input {
@@ -66,33 +77,15 @@
   transition: all 0.2s ease-in-out;
 }
 
-.TextInput_Button_Project input:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-}
-
-.TextInput_Button_Project button {
-  width: 100%;
-  padding: 10px 15px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
 .TextInput_Button_Project button:hover {
   background-color: #0056b3;
 }
 
 .Titre_Projet {
-  padding-left: 20px;
   font-weight: bold;
 }
 
 .Projects_List {
-  padding-left: 20px;
 }
 
 .Project_Container {
@@ -105,13 +98,14 @@
   flex-grow: 1;
   padding: 10px 15px;
   background-color: #ffffff;
-  border-radius: 8px;
+  border-radius: 4px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color: #8A8F9E;
+  font-size: 0.9em;
 }
 
 .Project_Content {
@@ -130,8 +124,7 @@
 }
 
 .Project_Item_Selected {
-  border: 2px solid #007bff; /* Couleur de la bordure pour l'élément sélectionné */
-  background-color: #f0f8ff; /* Légère modification de la couleur de fond */
+  background-color: #DAE0FE; /* Légère modification de la couleur de fond */
 }
 
 .Project_Name {
@@ -175,8 +168,11 @@
   width: 100%;
 }
 
-
-
+.ProjectInput {
+  width: 180%; /* Largeur complète */
+  padding: 10px; /* Espacement intérieur */
+  margin: 5px 0; /* Marge externe */
+}
 
 
 

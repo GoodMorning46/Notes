@@ -153,48 +153,53 @@ function App() {
     <div className="App">
       <div className="Bloc_parent">
         <div className="Menu_gauche">
-          <h1 className="Board">R2D2</h1>
-          <div className="TitleButtonProject">
-            <p className='Titre_Projet'>Projets</p>
-            <button className="ButtonAddProject" onClick={addProject}><FaPlus /></button>
+            <div className="TitleButtonProject">
+              <p className='Titre_Projet'>PROJETS</p>
+                <button className="ButtonAddProject" onClick={addProject}><FaPlus /></button>
+              </div>
+            <div className="Projects_List">
+              {projects.map((project, index) => (
+                <div key={project.id} className="Project_Container">
+                  {project.isEditing ? 
+                    <input 
+                    className="ProjectInput"
+                    type="text" 
+                    ref={projectNameInputRef}
+                    value={project.name} 
+                    onChange={(e) => handleEditProject(project.id, e.target.value)} 
+                    onBlur={() => handleFinishEdit(project.id)}
+                    onKeyPress={(e) => {
+                      if (e.key === 'Enter') {
+                        handleFinishEdit(project.id); // Supposons que cette fonction finalise la création du projet
+                      }
+                    }}
+                  />
+          
+          : 
+          <div 
+            className={`Project_Item ${selectedProjectIndex === index ? 'Project_Item_Selected' : ''}`} 
+            onClick={() => handleSelectProject(index)}
+          >
+            {editingProjectIndex === index ? (
+              <input
+                type="text"
+                value={editingProjectName}
+                onChange={handleEditProjectNameChange}
+                onBlur={() => handleEditProjectNameSubmit(index)}
+                onKeyPress={(e) => e.key === 'Enter' && handleEditProjectNameSubmit(index)}
+                autoFocus
+              />
+            ) : (
+              <>
+                <span onDoubleClick={() => handleEditProject(index)}>{project.name}</span>
+                <FaTrash onClick={(e) => { e.stopPropagation(); handleDeleteProject(index); }} className="Delete_Icon" />
+              </>
+            )}
           </div>
-          <div className="Projects_List">
-  {projects.map((project, index) => (
-    <div key={project.id} className="Project_Container">
-      {project.isEditing ? 
-        <input 
-          type="text" 
-          ref={projectNameInputRef}
-          value={project.name} 
-          onChange={(e) => handleEditProject(project.id, e.target.value)} 
-          onBlur={() => handleFinishEdit(project.id)} 
-        />
-        : 
-        <div 
-          className={`Project_Item ${selectedProjectIndex === index ? 'Project_Item_Selected' : ''}`} 
-          onClick={() => handleSelectProject(index)}
-        >
-          {editingProjectIndex === index ? (
-            <input
-              type="text"
-              value={editingProjectName}
-              onChange={handleEditProjectNameChange}
-              onBlur={() => handleEditProjectNameSubmit(index)}
-              onKeyPress={(e) => e.key === 'Enter' && handleEditProjectNameSubmit(index)}
-              autoFocus
-            />
-          ) : (
-            <>
-              <span onDoubleClick={() => handleEditProject(index)}>{project.name}</span>
-              <FaTrash onClick={(e) => { e.stopPropagation(); handleDeleteProject(index); }} className="Delete_Icon" />
-            </>
-          )}
-        </div>
-      }
-    </div>
-  ))}
-</div>
-
+        }
+      </div>
+    ))}
+            </div>
         </div>
         <div className="Notes">
           {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&
