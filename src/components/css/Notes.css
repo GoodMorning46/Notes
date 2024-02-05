@@ -2,13 +2,12 @@
 
 
 .notes-container {
-  width: 96%;
+  width: 100%;
   margin: 0 auto;
   background-color: #F6F8FB;
   height: 700px; /* Hauteur du containeur de toute la Note */
   border-radius: 3px;
   position: relative;
-  margin-left: 3%;
   padding: 3%;
   position: relative;
 }

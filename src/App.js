@@ -128,12 +128,14 @@ function App() {
     });
     setProjects(updatedProjects);
   };
+  
 
   const handleSelectProject = (projectIndex) => {
-    setSelectedProjectIndex(projectIndex);
-    const lastSelectedNoteIndex = projects[projectIndex].lastSelectedNoteIndex;
-    setSelectedNoteIndex(lastSelectedNoteIndex);
-  };
+  setSelectedProjectIndex(projectIndex);
+  // Réinitialiser la sélection de la note indépendante
+  const lastSelectedNoteIndex = projects[projectIndex].lastSelectedNoteIndex || 0;
+  setSelectedNoteIndex(lastSelectedNoteIndex);
+};
 
   const addProject = () => {
     const newProject = { id: Date.now(), name: '', isEditing: true, notes: [''] };
@@ -153,9 +155,12 @@ function App() {
     <div className="App">
       <div className="Bloc_parent">
         <div className="Menu_gauche">
+          <div className="BackgroundProjectList">
             <div className="TitleButtonProject">
               <p className='Titre_Projet'>PROJETS</p>
+              <div className="BackgroundButton">
                 <button className="ButtonAddProject" onClick={addProject}><FaPlus /></button>
+              </div>
               </div>
             <div className="Projects_List">
               {projects.map((project, index) => (
@@ -200,6 +205,7 @@ function App() {
       </div>
     ))}
             </div>
+          </div>
         </div>
         <div className="Notes">
           {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&
@@ -233,6 +239,7 @@ function App() {
           />
         </div>
       </div>
+      
     </div>
   );
 }
