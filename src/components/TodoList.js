@@ -16,7 +16,14 @@ const TodoList = ({ todos, setTodos }) => {
     saveProjects(updatedTodos);
   };
 
-  const handleEditTodo = (e, todoId) => {
+  const handleDoubleClick = (todoId) => {
+    const updatedTodos = todos.map(todo =>
+      todo.id === todoId ? { ...todo, isEditing: !todo.isEditing } : todo
+    );
+    setTodos(updatedTodos);
+  };
+
+  const handleEditChange = (e, todoId) => {
     const updatedTodos = todos.map(todo =>
       todo.id === todoId ? { ...todo, text: e.target.value } : todo
     );
@@ -55,30 +62,32 @@ const TodoList = ({ todos, setTodos }) => {
         <FaPlus className="fa" /> Créer une tâche
       </button>
       <ul className="todo-list">
-        {todos.map((todo, index) => (
-          <li key={todo.id} className="todo-list-item">
-            {todo.isEditing ? (
-              <div className="task-content">
-                <input
-                  ref={index === todos.length - 1 ? newTodoRef : null}
-                  type="text"
-                  value={todo.text}
-                  onChange={(e) => handleEditTodo(e, todo.id)}
-                  onBlur={() => handleFinishEdit(todo.id)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleFinishEdit(todo.id)}
-                />
-              </div>
-            ) : (
-              <div className="task-content">
-                <input type="checkbox" className="task-checkbox" onClick={() => deleteTodo(todo.id)} />
-                <div className="task-text-container">
-                  <span className="task-text">{todo.text}</span>
-                </div>
-              </div>
-            )}
-          </li>
-        ))}
-      </ul>
+  {todos.map((todo, index) => (
+    <li
+      key={todo.id}
+      className={`todo-list-item ${todo.isEditing ? "editing" : ""}`}
+      onDoubleClick={() => handleDoubleClick(todo.id)}
+    >
+      {todo.isEditing ? (
+        <input
+          ref={index === todos.length - 1 ? newTodoRef : null}
+          type="text"
+          value={todo.text}
+          onChange={(e) => handleEditChange(e, todo.id)}
+          onBlur={() => handleFinishEdit(todo.id)}
+          onKeyPress={(e) => e.key === 'Enter' && handleFinishEdit(todo.id)}
+          autoFocus
+        />
+      ) : (
+        <div className="task-content">
+          <input type="checkbox" className="task-checkbox" onClick={() => deleteTodo(todo.id)} />
+          <span className="task-text">{todo.text}</span>
+        </div>
+      )}
+    </li>
+  ))}
+</ul>
+
     </div>
   );
 };
