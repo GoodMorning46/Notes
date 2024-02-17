@@ -70,9 +70,9 @@ const TodoList = ({ todos, setTodos }) => {
               </div>
             ) : (
               <div className="task-content">
-                <div className="task-text">
-                  <input type="checkbox" onClick={() => deleteTodo(todo.id)} />
-                  {todo.text}
+                <input type="checkbox" className="task-checkbox" onClick={() => deleteTodo(todo.id)} />
+                <div className="task-text-container">
+                  <span className="task-text">{todo.text}</span>
                 </div>
               </div>
             )}
