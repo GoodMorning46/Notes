@@ -4,6 +4,7 @@ import './App.css';
 import Notes from './components/Notes';
 import TodoList from './components/TodoList';
 
+
 function App() {
   const [projects, setProjects] = useState([]);
   const [todos, setTodos] = useState([]);

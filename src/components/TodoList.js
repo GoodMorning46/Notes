@@ -1,10 +1,9 @@
-import React, { useRef, useEffect, useCallback, useState } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import "./css/TodoList.css";
-import { FaPlus, FaEllipsisV } from 'react-icons/fa';
+import { FaPlus } from 'react-icons/fa';
 
 const TodoList = ({ todos, setTodos }) => {
   const newTodoRef = useRef(null);
-  const [openMenuTodoId, setOpenMenuTodoId] = useState(null);
 
   const addTodo = () => {
     const newTodoItem = {
@@ -49,13 +48,9 @@ const TodoList = ({ todos, setTodos }) => {
     localStorage.setItem('todos', JSON.stringify(todosForSaving));
   }, []);
 
-  const toggleMenu = (todoId) => {
-    setOpenMenuTodoId(openMenuTodoId === todoId ? null : todoId);
-  };
-
   return (
     <div className="todo-container">
-      <h2>Liste des tâches</h2>
+      <h2>TO-DO</h2>
       <button className="todo-add-button" onClick={addTodo}>
         <FaPlus className="fa" /> Créer une tâche
       </button>
@@ -81,9 +76,6 @@ const TodoList = ({ todos, setTodos }) => {
                 </div>
               </div>
             )}
-            <button className="todo-menu-button" onClick={() => toggleMenu(todo.id)}>
-              <FaEllipsisV />
-            </button>
           </li>
         ))}
       </ul>
