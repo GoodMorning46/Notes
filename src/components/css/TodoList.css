@@ -50,9 +50,9 @@
     display: flex;
     align-items: center; /* Ceci aligne verticalement la checkbox et le texte au centre */
     color: black; /* Couleur du texte */
-    font-size: 0.9em;
+    font-size: 0.8em;
     position: relative;
-    margin-bottom: 5%; /* Espace blanc sous chaque tâche */
+    margin-bottom: 3%; /* Espace blanc sous chaque tâche */
     /* Autres styles (bordures, padding, etc.) selon vos besoins */
     height: 40px;
     border-radius: 4px;
@@ -71,8 +71,9 @@
 
   /* Style pour la checkbox non cochée */
 .todo-list-item input[type="checkbox"] {
-  width: 20px; /* Taille de la checkbox */
-  height: 20px;
+  width: 20px; /* Taille fixe pour la largeur */
+  height: 20px; /* Taille fixe pour la hauteur */
+  flex-shrink: 0; /* Empêche la checkbox de rétrécir */
   margin-right: 10px;
   vertical-align: middle;
   border: 2px solid black; /* Bord violet */
@@ -100,12 +101,6 @@
 .task-text {
   display: block; /* Assure que le texte est traité comme un bloc, permettant le contrôle de la largeur et du retour à la ligne */
   word-break: break-word; /* Permet au texte long de passer à la ligne sans déborder */
-}
-
-
-/* Style pour la checkbox cochée */
-.todo-list-item input[type="checkbox"]:checked {
-  background-color: #615EEF; /* Fond violet */
 }
 
 .todo-container h2 {
