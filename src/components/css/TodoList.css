@@ -51,12 +51,18 @@ body {
   
   .todo-list-item {
     display: flex;
-    align-items: center;
+    background-color: red;
     color: black; /* Couleur du texte */
     font-size: 0.9em;
     padding-top: 5%;
     position: relative;
+    background-color: white; /* Arrière-plan rouge pour chaque tâche */
+    margin-bottom: 10px; /* Espace blanc sous chaque tâche */
+    /* Autres styles (bordures, padding, etc.) selon vos besoins */
+    height: 40px;
+    border-radius: 4px;
   }
+  
   
   .todo-list-item-text {
     flex-grow: 1; /* Permet au texte de prendre l'espace disponible */

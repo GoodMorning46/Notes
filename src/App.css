@@ -195,6 +195,33 @@ padding-bottom: 1%;
 width: 100%;
 }
 
+.App .notes-tabs-container .notes-tab {
+  background-color: #F6F7FB; /* Augmente la spécificité */
+  /* Autres styles */
+}
+
+.App .notes-tabs-container .notes-tab:hover {
+  background-color: #DAE0FE; /* Augmente la spécificité */
+  /* Autres styles */
+}
+
+.App .notes-tabs-container .notes-tab-active {
+  background-color: #DAE0FE; /* Couleur spécifique pour l'onglet actif */
+  /* Autres styles */
+}
+
+.notes-tab {
+  color: black; /* Couleur de texte foncée pour contraster */
+  padding: 10px 15px; /* Espacement intérieur pour un look aéré */
+  height: 15px;
+  margin-right: 5px; /* Espacement entre les onglets */
+  cursor: pointer; /* Indique que l'élément est cliquable */
+  transition: background-color 0.1s; /* Transition douce pour le survol */
+}
+
+
+
+
 .ProjectInput {
 width: 180%; /* Largeur complÃ¨te */
 padding: 10px; /* Espacement intÃ©rieur */
