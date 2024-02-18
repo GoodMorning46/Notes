@@ -2,10 +2,10 @@
 
 
 .notes-container {
-  width: 100%;
+  width: 106%;
   margin: 0 auto;
   background-color: #F6F8FB;
-  height: 700px; /* Hauteur du containeur de toute la Note */
+  height: 81vh; /* Hauteur du containeur de toute la Note */
   border-radius: 3px;
   position: relative;
   padding: 1%;
@@ -14,7 +14,7 @@
 
 .ql-container {
   width: 100%;
-  height: 700px; /* Hauteur de la partie d'écriture */
+  height: 81vh; /* Hauteur de la partie d'écriture */
   border-radius: 3px;
   padding: 1%;
   font-size: 0.9em;
@@ -22,13 +22,21 @@
   position: relative;
 }
 
+.ql-container {
+  border: none;
+}
+
+.ql-editor {
+  border: none;
+}
+
 .ql-container.ql-snow {
   border: none !important;
 }
 
 .ql-toolbar {
-  border-radius: 3px;
-  width: 50%; 
+  border-style: none;
+  width: 80%; 
   height: 40px; 
   position: absolute;
   left: 50%;
@@ -37,7 +45,7 @@
   bottom: 50px; 
   display: flex;
   justify-content: center;
-  background-color: #f8f9fa;
+  background-color: white;
   z-index: 1; /* Ajoutez cette ligne pour placer .ql-toolbar devant .ql-container */
 }
 

@@ -4,11 +4,11 @@ import 'react-quill/dist/quill.snow.css';
 import './css/Notes.css';
 
 const toolbarOptions = [
-  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+  [{ 'header': [1, 2, 3, false] }],
   ['bold', 'italic', 'underline', 'strike'],
-  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+  [{ 'list': 'bullet' }],
   [{ 'color': [] }, { 'background': [] }],
-  ['link', 'image'],
+  ['link',],
 ];
 
 const Notes = ({ content, onContentChange, onDeleteNote, selectedNoteIndex }) => {

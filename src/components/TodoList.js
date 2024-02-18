@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useCallback } from 'react';
 import "./css/TodoList.css";
 import { FaPlus } from 'react-icons/fa';
 
+
 const TodoList = ({ todos, setTodos }) => {
   const newTodoRef = useRef(null);
 
@@ -54,6 +55,7 @@ const TodoList = ({ todos, setTodos }) => {
     const todosForSaving = todos.map(todo => ({ ...todo, isEditing: false }));
     localStorage.setItem('todos', JSON.stringify(todosForSaving));
   }, []);
+  
 
   return (
     <div className="todo-container">
