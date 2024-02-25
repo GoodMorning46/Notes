@@ -59,10 +59,12 @@ const TodoList = ({ todos, setTodos }) => {
 
   return (
     <div className="todo-container">
-      <h2>TO-DO</h2>
-      <button className="todo-add-button" onClick={addTodo}>
-        <FaPlus className="fa" /> Créer une tâche
-      </button>
+      <div className="Title_Button_Container">
+        <h2>TO-DO</h2>
+        <div className="BackgroundButton2">
+          <button className="todo-add-button" onClick={addTodo}><FaPlus className="fa" /></button>
+        </div>
+      </div>
       <ul className="todo-list">
   {todos.map((todo, index) => (
     <li

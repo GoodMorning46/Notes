@@ -11,24 +11,37 @@
   position: relative;
   overflow: auto;
 }
-  
-  .todo-add-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #EDF0FF;
-    color: #615EEF;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-align: left; /* Alignement du texte à gauche */
-    display: flex; /* Utilisez flexbox pour aligner l'icône et le texte */
-    align-items: center; /* Centre verticalement l'icône et le texte */
-    justify-content: flex-start; /* Démarre le contenu du bouton à gauche */
-  }
 
-  .todo-add-button .fa {
-    margin-right: 10px; /* Ajoutez un espace à droite de l'icône */
-  }
+.Title_Button_Container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.BackgroundButton2 {
+  background-color: white;
+  width: 14%;
+  height: 40px;
+  display: flex;
+  justify-content: right; /* Centre horizontalement */
+  align-items: center; /* Centre verticalement */
+  padding: 2%;
+  border-bottom-left-radius: 7px;
+  margin-top: -2vh;
+  margin-right: -5%;
+}
+  
+.todo-add-button {
+  width: 90%;
+  height: 39px;
+  margin-bottom: 10px; /* Espace entre le champ de saisie et le bouton */
+  outline: none;
+  cursor: pointer;
+  background-color: #8F99FA;
+  color: white;
+  border: none;
+  border-radius: 7px;
+}
+
   
   .todo-list-item input[type="text"] {
     width: 180%; /* Largeur complète */

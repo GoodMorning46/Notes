@@ -14,6 +14,10 @@ function App() {
   const [selectedNoteIndex, setSelectedNoteIndex] = useState(0); // Ajout pour gérer l'index de la note sélectionnée
   const [isCreatingProject, setIsCreatingProject] = useState(false);
   const projectNameInputRef = useRef(null);
+  const colors = ['#FFB6C1', '#C1FFC1', '#C1C1FF', '#FFFF99', '#FFA07A', '#B0E0E6', '#FAFAD2'];
+  const [notes, setNotes] = useState([{ content: 'Note initiale', color: colors[0] }]);
+
+
 
   // Récupère les données du localStorage
   useEffect(() => {
@@ -84,19 +88,31 @@ function App() {
   // Ajoute une note vide au projet sélectionné
   const handleAddNote = () => {
     if (selectedProjectIndex !== -1) {
-      const updatedProjects = projects.map((project, index) => 
-        index === selectedProjectIndex ? { ...project, notes: [...project.notes, ''] } : project
-      );
+      const updatedProjects = projects.map((project, index) => {
+        if (index === selectedProjectIndex) {
+          const newColor = colors[project.notes.length % colors.length]; // Choix de la couleur
+          const newNote = { content: '', color: newColor }; // Création de la nouvelle note avec couleur
+          return { ...project, notes: [...project.notes, newNote] }; // Ajout de la nouvelle note
+        } else {
+          return project;
+        }
+      });
       setProjects(updatedProjects);
       saveProjects(updatedProjects);
     }
   };
+  
 
   // Met à jour le contenu d'une note
   const handleUpdateNote = (newNoteContent, noteIndex) => {
     const updatedProjects = projects.map((project, index) => {
       if (index === selectedProjectIndex) {
-        const updatedNotes = project.notes.map((note, ni) => ni === noteIndex ? newNoteContent : note);
+        const updatedNotes = project.notes.map((note, ni) => {
+          if (ni === noteIndex) {
+            return { ...note, content: newNoteContent }; // Met à jour uniquement la propriété content
+          }
+          return note;
+        });
         return { ...project, notes: updatedNotes };
       }
       return project;
@@ -104,6 +120,8 @@ function App() {
     setProjects(updatedProjects);
     saveProjects(updatedProjects);
   };
+  
+
 
   // Supprimer une note
   const handleDeleteNote = (projectIndex, noteIndex) => {
@@ -162,7 +180,7 @@ function App() {
               <div className="BackgroundButton">
                 <button className="ButtonAddProject" onClick={addProject}><FaPlus /></button>
               </div>
-              </div>
+            </div>
             <div className="Projects_List">
               {projects.map((project, index) => (
                 <div key={project.id} className="Project_Container">
@@ -209,29 +227,30 @@ function App() {
           </div>
         </div>
         <div className="Notes">
-          {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&
-            <div className="notes-tabs-container">
-              {projects[selectedProjectIndex].notes.map((note, index) => (
-                <div
-                  key={index}
-                  className={`notes-tab ${index === selectedNoteIndex ? 'notes-tab-active' : ''} onglet-note`}
-                  onClick={() => handleSelectNote(index)}
-                >
-                  <span className="note-text-class">Note {index + 1}</span>
-                  <FaTrash onClick={(e) => { e.stopPropagation(); handleDeleteNote(selectedProjectIndex, index); }} className="Delete_Icon" />
-                </div>
-              ))}
-              <button onClick={handleAddNote} className="add-note-button">Créer une note</button>
-            </div>
-          }
-          {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&
-            <Notes
-              content={projects[selectedProjectIndex].notes[selectedNoteIndex]}
-              onContentChange={(content) => handleUpdateNote(content, selectedNoteIndex)}
-              onDeleteNote={() => handleDeleteNote(selectedProjectIndex, selectedNoteIndex)}
-            />
-          }
+  {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&
+    <div className="notes-tabs-container">
+      {projects[selectedProjectIndex].notes.map((note, index) => (
+        <div
+          key={index}
+          className={`notes-tab ${index === selectedNoteIndex ? 'notes-tab-active' : ''}`}
+          style={{ backgroundColor: note.color }} // Appliquer la couleur ici
+          onClick={() => handleSelectNote(index)}
+        >
+          <span className="note-text-class">Note {index + 1}</span>
+          <FaTrash onClick={(e) => { e.stopPropagation(); handleDeleteNote(selectedProjectIndex, index); }} className="Delete_Icon" />
         </div>
+      ))}
+      <button onClick={handleAddNote} className="add-note-button">Créer une note</button>
+    </div>
+  }
+  {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&
+    <Notes
+      content={projects[selectedProjectIndex].notes[selectedNoteIndex].content} // Assurez-vous d'accéder à la propriété content ici
+      onContentChange={(content) => handleUpdateNote(content, selectedNoteIndex)}
+      onDeleteNote={() => handleDeleteNote(selectedProjectIndex, selectedNoteIndex)}
+    />
+  }
+</div>
         <div className="Todo">
           <TodoList
             todos={todos}
