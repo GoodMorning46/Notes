@@ -15,7 +15,6 @@ function App() {
   const [isCreatingProject, setIsCreatingProject] = useState(false);
   const projectNameInputRef = useRef(null);
   const colors = ['#FFB6C1', '#C1FFC1', '#C1C1FF', '#FFFF99', '#FFA07A', '#B0E0E6', '#FAFAD2'];
-  const [notes, setNotes] = useState([{ content: 'Note initiale', color: colors[0] }]);
 
 
 
