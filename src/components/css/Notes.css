@@ -7,7 +7,7 @@
   width: 106%;
   margin: 0 auto;
   background-color: #F6F8FB;
-  height: 81vh; /* Hauteur du containeur de toute la Note */
+  height: 88vh; /* Hauteur du containeur de toute la Note */
   border-radius: 3px;
   position: relative;
   padding: 1%;
@@ -16,7 +16,7 @@
 
 .ql-container {
   width: 100%;
-  height: 81vh; /* Hauteur de la partie d'écriture */
+  height: 88vh; /* Hauteur de la partie d'écriture */
   border-radius: 3px;
   padding: 1%;
   font-size: 0.9em;
