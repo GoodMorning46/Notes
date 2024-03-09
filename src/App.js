@@ -14,8 +14,6 @@ function App() {
   const [selectedNoteIndex, setSelectedNoteIndex] = useState(0); // Ajout pour gérer l'index de la note sélectionnée
   const [isCreatingProject, setIsCreatingProject] = useState(false);
   const projectNameInputRef = useRef(null);
-  const colors = ['#FFB6C1', '#C1FFC1', '#C1C1FF', '#FFFF99', '#FFA07A', '#B0E0E6', '#FAFAD2'];
-
 
 
   // Récupère les données du localStorage
@@ -89,8 +87,7 @@ function App() {
     if (selectedProjectIndex !== -1) {
       const updatedProjects = projects.map((project, index) => {
         if (index === selectedProjectIndex) {
-          const newColor = colors[project.notes.length % colors.length]; // Choix de la couleur
-          const newNote = { content: '', color: newColor }; // Création de la nouvelle note avec couleur
+          const newNote = { content: '' }; // Création de la nouvelle note avec couleur
           return { ...project, notes: [...project.notes, newNote] }; // Ajout de la nouvelle note
         } else {
           return project;
