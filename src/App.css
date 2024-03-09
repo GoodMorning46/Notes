@@ -203,6 +203,10 @@ padding-bottom: 1%;
 width: 100%;
 }
 
+.notes-tab:hover {
+  background-color: red; /* Change la couleur de fond au survol */
+}
+
 .App .notes-tabs-container .notes-tab {
   background-color: #F6F7FB; /* Augmente la spécificité */
   /* Autres styles */
@@ -213,9 +217,10 @@ width: 100%;
   /* Autres styles */
 }
 
+/* Couleur spécifique pour l'onglet actif */
 .App .notes-tabs-container .notes-tab-active {
-  background-color: #DAE0FE; /* Couleur spécifique pour l'onglet actif */
-  /* Autres styles */
+  background-color: #DAE0FE; 
+  color: #2E61F9;
 }
 
 .notes-tab {
