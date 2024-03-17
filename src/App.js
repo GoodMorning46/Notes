@@ -25,9 +25,17 @@ function App() {
       todos: project.todos || []
     }));
     setProjects(savedProjects);
+  
     const savedTodos = JSON.parse(localStorage.getItem('todos')) || [];
     setTodos(savedTodos);
+  
+    // Récupérer l'index du projet sélectionné
+    const savedSelectedProjectIndex = parseInt(localStorage.getItem('selectedProjectIndex'), 10);
+    if (!isNaN(savedSelectedProjectIndex) && savedProjects[savedSelectedProjectIndex]) {
+      setSelectedProjectIndex(savedSelectedProjectIndex);
+    }
   }, []);
+  
   
   // Sauvegarde les projets et la todo
   const saveProjects = () => {
@@ -146,11 +154,15 @@ function App() {
   
 
   const handleSelectProject = (projectIndex) => {
-  setSelectedProjectIndex(projectIndex);
-  // Réinitialiser la sélection de la note indépendante
-  const lastSelectedNoteIndex = projects[projectIndex].lastSelectedNoteIndex || 0;
-  setSelectedNoteIndex(lastSelectedNoteIndex);
-};
+    setSelectedProjectIndex(projectIndex);
+    // Réinitialiser la sélection de la note indépendante
+    const lastSelectedNoteIndex = projects[projectIndex].lastSelectedNoteIndex || 0;
+    setSelectedNoteIndex(lastSelectedNoteIndex);
+  
+    // Sauvegarder l'index du projet sélectionné dans le localStorage
+    localStorage.setItem('selectedProjectIndex', projectIndex);
+  };
+  
 
   const addProject = () => {
     const newProject = { id: Date.now(), name: '', isEditing: true, notes: [''] };
