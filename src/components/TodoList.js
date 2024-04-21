@@ -1,10 +1,11 @@
 import React, { useRef, useEffect, useCallback } from 'react';
 import "./css/TodoList.css";
-import { FaPlus } from 'react-icons/fa';
+import { BsPlusSquareDotted } from "react-icons/bs";
 
 
 const TodoList = ({ todos, setTodos }) => {
   const newTodoRef = useRef(null);
+  
 
   const addTodo = () => {
     const newTodoItem = {
@@ -60,10 +61,8 @@ const TodoList = ({ todos, setTodos }) => {
   return (
     <div className="todo-container">
       <div className="Title_Button_Container">
-        <h2>TO-DO</h2>
-        <div className="BackgroundButton2">
-          <button className="todo-add-button" onClick={addTodo}><FaPlus className="fa" /></button>
-        </div>
+        <p className='titre_mission'>MISSIONS</p>
+        <button className="todo-add-button" onClick={addTodo}><BsPlusSquareDotted className="AddNote" /></button>
       </div>
       <ul className="todo-list">
   {todos.map((todo, index) => (

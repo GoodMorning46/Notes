@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FaTrash, FaPlus  } from 'react-icons/fa';
+import { FaTrash  } from 'react-icons/fa';
+import { BsPlusSquareDotted } from "react-icons/bs";
+import B28Image from './B28.png';
 import './App.css';
 import Notes from './components/Notes';
 import TodoList from './components/TodoList';
+
 
 
 function App() {
@@ -14,6 +17,7 @@ function App() {
   const [selectedNoteIndex, setSelectedNoteIndex] = useState(0); // Ajout pour gérer l'index de la note sélectionnée
   const [isCreatingProject, setIsCreatingProject] = useState(false);
   const projectNameInputRef = useRef(null);
+  
 
 
   // Récupère les données du localStorage
@@ -35,7 +39,6 @@ function App() {
       setSelectedProjectIndex(savedSelectedProjectIndex);
     }
   }, []);
-  
   
   // Sauvegarde les projets et la todo
   const saveProjects = () => {
@@ -126,7 +129,6 @@ function App() {
   };
   
 
-
   // Supprimer une note
   const handleDeleteNote = (projectIndex, noteIndex) => {
     const updatedProjects = projects.map((project, index) => {
@@ -181,14 +183,20 @@ function App() {
   return (
     <div className="App">
       <div className="Bloc_parent">
+
         <div className="Menu_gauche">
-          <div className="BackgroundProjectList">
+          <div className="Texte_Welcome">
+            <img src={B28Image} className="logo" />
+            <div className="BienvenueVersion">
+              <div className="TexteDeBienvenue">Bienvenue</div>
+              <div className="Version">v0.2</div>
+            </div>
+          </div>
             <div className="TitleButtonProject">
               <p className='Titre_Projet'>PROJETS</p>
-              <div className="BackgroundButton">
-                <button className="ButtonAddProject" onClick={addProject}><FaPlus /></button>
-              </div>
+              <button className="ButtonAddProject" onClick={addProject}><BsPlusSquareDotted /></button>
             </div>
+
             <div className="Projects_List">
               {projects.map((project, index) => (
                 <div key={project.id} className="Project_Container">
@@ -205,13 +213,10 @@ function App() {
                         handleFinishEdit(project.id); // Supposons que cette fonction finalise la création du projet
                       }
                     }}
-                  />
-          
-          : 
+                  />: 
           <div 
             className={`Project_Item ${selectedProjectIndex === index ? 'Project_Item_Selected' : ''}`} 
-            onClick={() => handleSelectProject(index)}
-          >
+            onClick={() => handleSelectProject(index)}>
             {editingProjectIndex === index ? (
               <input
                 type="text"
@@ -226,46 +231,51 @@ function App() {
                 <span onDoubleClick={() => handleEditProject(index)}>{project.name}</span>
                 <FaTrash onClick={(e) => { e.stopPropagation(); handleDeleteProject(index); }} className="Delete_Icon" />
               </>
-            )}
-          </div>
-        }
-      </div>
-    ))}
+                      )}
+                    </div>
+                  }
+                </div>
+              ))}
             </div>
+
+        </div>
+
+        <div className="NotesTodo">
+          <div className="Notes">
+    {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&
+      <div className="notes-tabs-container">
+        {projects[selectedProjectIndex].notes.map((note, index) => (
+          <div
+            key={index}
+            className={`notes-tab ${index === selectedNoteIndex ? 'notes-tab-active' : ''}`}
+            style={{ backgroundColor: note.color }} // Appliquer la couleur ici
+            onClick={() => handleSelectNote(index)}
+          >
+            <span className="note-text-class">Note {index + 1}</span>
+            <FaTrash onClick={(e) => { e.stopPropagation(); handleDeleteNote(selectedProjectIndex, index); }} className="Delete_Icon" />
+          </div>
+        ))}
+        <button onClick={handleAddNote} className="add-note-button"><BsPlusSquareDotted /></button>
+      </div>
+    }
+    {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&
+      <Notes
+        content={projects[selectedProjectIndex].notes[selectedNoteIndex].content} // Assurez-vous d'accéder à la propriété content ici
+        onContentChange={(content) => handleUpdateNote(content, selectedNoteIndex)}
+        onDeleteNote={() => handleDeleteNote(selectedProjectIndex, selectedNoteIndex)}
+      />
+    }
+          </div>
+
+          <div className="Todo">
+            <TodoList
+              todos={todos}
+              setTodos={setTodos}
+              saveProjects={saveProjects}
+            />
           </div>
         </div>
-        <div className="Notes">
-  {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&
-    <div className="notes-tabs-container">
-      {projects[selectedProjectIndex].notes.map((note, index) => (
-        <div
-          key={index}
-          className={`notes-tab ${index === selectedNoteIndex ? 'notes-tab-active' : ''}`}
-          style={{ backgroundColor: note.color }} // Appliquer la couleur ici
-          onClick={() => handleSelectNote(index)}
-        >
-          <span className="note-text-class">Note {index + 1}</span>
-          <FaTrash onClick={(e) => { e.stopPropagation(); handleDeleteNote(selectedProjectIndex, index); }} className="Delete_Icon" />
-        </div>
-      ))}
-      <button onClick={handleAddNote} className="add-note-button">Créer une note</button>
-    </div>
-  }
-  {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&
-    <Notes
-      content={projects[selectedProjectIndex].notes[selectedNoteIndex].content} // Assurez-vous d'accéder à la propriété content ici
-      onContentChange={(content) => handleUpdateNote(content, selectedNoteIndex)}
-      onDeleteNote={() => handleDeleteNote(selectedProjectIndex, selectedNoteIndex)}
-    />
-  }
-</div>
-        <div className="Todo">
-          <TodoList
-            todos={todos}
-            setTodos={setTodos}
-            saveProjects={saveProjects}
-          />
-        </div>
+
       </div>
       
     </div>
