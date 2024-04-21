@@ -186,7 +186,7 @@ function App() {
 
         <div className="Menu_gauche">
           <div className="Texte_Welcome">
-            <img src={B28Image} className="logo" />
+            <img src={B28Image} alt="logo" className="logo" />
             <div className="BienvenueVersion">
               <div className="TexteDeBienvenue">Bienvenue</div>
               <div className="Version">v0.2</div>
@@ -255,7 +255,7 @@ function App() {
             <FaTrash onClick={(e) => { e.stopPropagation(); handleDeleteNote(selectedProjectIndex, index); }} className="Delete_Icon" />
           </div>
         ))}
-        <button onClick={handleAddNote} className="add-note-button"><BsPlusSquareDotted /></button>
+        <button onClick={handleAddNote} className="add-note-button"><BsPlusSquareDotted className="icone_plus"/></button>
       </div>
     }
     {selectedProjectIndex !== -1 && projects[selectedProjectIndex] &&
