@@ -140,8 +140,8 @@
   z-index: 1;
   border-radius: 4px; /* Coins arrondis */
   font-size: 1em; /* Taille de la police */
-  transform: translateY(20px); /* Position légèrement décalée pour l'animation */
-  transition: all 200ms linear; /* Transition douce pour 'opacity' et 'transform' */
+  transform: translateY(-20px);  /* Commence légèrement au-dessus pour l'animation */
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;  /* Transition douce pour les propriétés */
 }
 
 /* Styles pour les éléments de la liste */
@@ -151,12 +151,19 @@
   transition: background-color 200ms linear; /* Transition pour le survol */
 }
 
+.dropdown-menu.show {
+  opacity: 1;  /* Rendez visible */
+  visibility: visible;  /* Assurez-vous qu'il est interactif */
+  transform: translateY(0);  /* Revenez à la position d'origine */
+  transition-delay: 0s;  /* Pas de retard sur l'animation d'apparition */
+}
+
 /* Styles pour le survol des éléments de la liste */
 .dropdown-menu li:hover {
   background-color: white; /* Changement de couleur au survol */
-  border: solid blue 1px;
+  border: solid #2F61F9 1px;
   border-radius: 5px;
-  color: #102770; /* Changement de couleur de texte au survol */
+  color: #2F61F9; /* Changement de couleur de texte au survol */
 }
 
 
