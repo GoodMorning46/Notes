@@ -29,52 +29,34 @@
   color: #919191;
 }
   
-  .todo-list-item input[type="text"] {
-    width: 180%; /* Largeur complète */
-    padding: 10px; /* Espacement intérieur */
-    margin: 5px 0; /* Marge externe */
-  }
+.todo-list-item input[type="text"] {
+  width: 180%; /* Largeur complète */
+  padding: 10px; /* Espacement intérieur */
+  margin: 5px 0; /* Marge externe */
+}
   
-  .todo-list {
-    list-style: none;
-    padding : 0px;
-  }
+.todo-list {
+  list-style: none;
+  padding : 0px;
+}
   
-  .todo-list-item {
-    display: flex;
-    align-items: center; /* Ceci aligne verticalement la checkbox et le texte au centre */
-    color: black; /* Couleur du texte */
-    font-size: 0.8em;
-    position: relative;
-    margin-bottom: 3%; /* Espace blanc sous chaque tâche */
-    height: 40px;
-    border-radius: 10px;
-    background-color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 2%;
-  }
+.todo-list-item {
+  display: flex;
+  color: black; /* Couleur du texte */
+  font-size: 0.8em;
+  position: relative;
+  margin-bottom: 4%; /* Espace blanc sous chaque tâche */
+  border-radius: 5px;
+  background-color: white;
+  padding: 3%;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
   
-  .todo-list-item-text {
-    flex-grow: 1; /* Permet au texte de prendre l'espace disponible */
-    word-break: break-all; /* Casse les mots longs si nécessaire */
-    margin-right: 10px; /* Espace entre le texte et l'icône */
-    width: 50%;
-  }
-  
-
-  /* Style pour la checkbox non cochée */
-.todo-list-item input[type="checkbox"] {
-  width: 20px; /* Taille fixe pour la largeur */
-  height: 20px; /* Taille fixe pour la hauteur */
-  flex-shrink: 0; /* Empêche la checkbox de rétrécir */
-  margin-right: 10px;
-  vertical-align: middle;
-  border: 1px solid #919191; 
-  appearance: none; /* Enlève le style par défaut */
-  -webkit-appearance: none;
-  outline: none;
-  cursor: pointer;
-  border-radius: 10px;
+.todo-list-item-text {
+  flex-grow: 1; /* Permet au texte de prendre l'espace disponible */
+  word-break: break-all; /* Casse les mots longs si nécessaire */
+  margin-right: 10px; /* Espace entre le texte et l'icône */
+  width: 50%;
 }
 
 .task-content {
@@ -83,9 +65,112 @@
   padding: 5px; /* Ajoute un peu d'espace autour du contenu */
 }
 
-.task-checkbox {
-  margin-right: 10px; /* Espacement entre la checkbox et le texte */
+  /* Style pour la checkbox non cochée */
+  .todo-list-item input[type="checkbox"] {
+    width: 20px; /* Taille fixe pour la largeur */
+    height: 20px; /* Taille fixe pour la hauteur */
+    flex-shrink: 0; /* Empêche la checkbox de rétrécir */
+    margin-right: 10px;
+    vertical-align: middle;
+    border: 1px solid #919191; 
+    appearance: none; /* Enlève le style par défaut */
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+.button_add_project {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid #dbdbdb;
+  border-radius: .375em;
+  box-shadow: none;
+  box-sizing: border-box;
+  color: grey;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 0.8em;
+  height: 1.7em;
+  justify-content: center;
+  line-height: 1.5;
+  position: relative;
+  text-align: center;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: top;
+  white-space: nowrap;
+  margin-top: 0.8vh;
 }
+
+.icon-arrow-down {
+  margin-left: 5px;  /* Espacement entre le texte et l'icône */
+}
+
+.button_add_project:active {
+  border-color: #4a4a4a;
+  outline: 0;
+}
+
+.button_add_project:focus {
+  border-color: #485fc7;
+  outline: 0;
+}
+
+.button_add_project:hover {
+  border-color: #b5b5b5;
+}
+
+.button_add_project:focus:not(:active) {
+  box-shadow: rgba(72, 95, 199, .25) 0 0 0 .125em;
+}
+
+.dropdown-menu {
+  position: absolute;
+  background-color: white;
+  border: 1px solid grey;
+  color: grey; 
+  min-width: 160px;
+  box-shadow: 0 12px 35px rgba(255, 235, 167, 0.15); /* Ombre douce */
+  z-index: 1;
+  border-radius: 4px; /* Coins arrondis */
+  font-size: 1em; /* Taille de la police */
+  transform: translateY(20px); /* Position légèrement décalée pour l'animation */
+  transition: all 200ms linear; /* Transition douce pour 'opacity' et 'transform' */
+}
+
+/* Styles pour les éléments de la liste */
+.dropdown-menu li {
+  padding: 10px 20px; /* Padding intérieur pour chaque élément */
+  cursor: pointer; /* Indique qu'un élément est cliquable */
+  transition: background-color 200ms linear; /* Transition pour le survol */
+}
+
+/* Styles pour le survol des éléments de la liste */
+.dropdown-menu li:hover {
+  background-color: white; /* Changement de couleur au survol */
+  border: solid blue 1px;
+  border-radius: 5px;
+  color: #102770; /* Changement de couleur de texte au survol */
+}
+
+
+
+.project-display {
+  display: flex;
+  align-items: center; /* Assure que les éléments sont centrés verticalement */
+  cursor: pointer; /* Indique que l'élément est cliquable */
+  font-size: 0.9em; /* Ajustez selon vos besoins */
+  color: grey; /* Ajustez selon vos besoins */
+  margin-top: 1vh;
+}
+
+
 
 .task-text-container {
   flex-grow: 1; /* Permet au conteneur du texte de prendre tout l'espace horizontal restant */

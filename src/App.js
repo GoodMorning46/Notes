@@ -268,11 +268,12 @@ function App() {
           </div>
 
           <div className="Todo">
-            <TodoList
-              todos={todos}
-              setTodos={setTodos}
-              saveProjects={saveProjects}
-            />
+          <TodoList
+            todos={todos}
+            setTodos={setTodos}
+            saveProjects={saveProjects}
+            projects={projects}  // Ajouter cette ligne
+          />
           </div>
         </div>
 
